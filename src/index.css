@@ -1,0 +1,84 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* Base font family for the app */
+body {
+  font-family: "Nunito", sans-serif;
+  scroll-behavior: smooth
+}
+
+/* Tailwind base styles */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Hide Swiper nav buttons when disabled */
+.swiper-button-prev.swiper-button-disabled,
+.swiper-button-next.swiper-button-disabled {
+  display: none;
+}
+
+/* Swiper arrow icons */
+.swiper-button-prev::after,
+.swiper-button-next::after {
+  font-size: 20px !important;
+  color: white !important;
+}
+
+/* Common styles for swiper buttons */
+.swiper-button-prev,
+.swiper-button-next {
+  background-color: black !important;
+  padding: 25px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Override default button dimensions */
+.swiper-button-next,
+.swiper-button-prev {
+  width: 30px !important;
+  height: 30px !important;
+}
+
+/* Tablet responsiveness */
+@media (max-width: 1024px) {
+  .swiper-button-next,
+  .swiper-rtl .swiper-button-prev {
+    width: 30px !important;
+    height: 30px !important;
+  }
+  .swiper-button-prev,
+  .swiper-button-next {
+    padding: 18px;
+  }
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .swiper-button-prev,
+  .swiper-button-next {
+    padding: 5px;
+  }
+
+  .swiper-button-next,
+  .swiper-rtl .swiper-button-prev {
+    width: 30px !important;
+    height: 30px !important;
+  }
+
+  .swiper-button-prev::after,
+  .swiper-button-next::after {
+    font-size: 10px !important;
+  }
+}
+
+/* Hide default Swiper pagination */
+.swiper-pagination-fraction,
+.swiper-pagination-custom,
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal {
+  display: none !important;
+}

@@ -1,0 +1,328 @@
+[
+  {
+    "id": "chatbot-ia-sg",
+    "title": "Chatbot IA d'Entreprise",
+    "company": "Société Générale",
+    "year": "2024",
+    "date": "Mai 2024 - Août 2024",
+    "lieu": "Fontenay-sous-Bois, France",
+    "type": "Projet Professionnel",
+    "lien": "",
+    "images": [
+      "/images/corporation.jpg",
+      "/images/taskflow.jpg"
+    ],
+    "description": "Conception et livraison de la version 1 d'un chatbot propulsé par l'IA en 2 mois pour répondre aux besoins métiers des équipes internes de la Société Générale.\n\nObjectif : Fournir un assistant conversationnel intelligent avec deux interfaces dédiées (UI utilisateur et UI administrateur) afin d'automatiser et fluidifier l'accès à l'information interne.\n\nRéalisations :\n• Conception et développement des interfaces frontend modernes avec TypeScript et React d'après des maquettes Figma\n• Développement de l'architecture backend Java / Spring Boot et intégration des modèles IA\n• Mise en place de l'UI administrateur pour la gestion des connaissances, permissions et logs\n• Rédaction des tests unitaires et d'intégration avec Jest, JUnit et Mockito pour garantir la robustesse\n• Déploiement et adoption par plus de 50 utilisateurs internes avec documentation technique complète\n\nNB: Projet phare mené en méthodologie Agile Scrum en coordination étroite avec les équipes DevOps pour la mise en production.",
+    "results": [
+      {
+        "metric": "Délai de livraison",
+        "value": "2 mois",
+        "description": "Conception, développement et livraison de la V1"
+      },
+      {
+        "metric": "Adoption interne",
+        "value": "+50 utilisateurs",
+        "description": "Utilisateurs métiers actifs en interne"
+      },
+      {
+        "metric": "Fiabilité & Tests",
+        "value": "Robuste",
+        "description": "Tests unitaires et d'intégration (JUnit, Mockito, Jest)"
+      }
+    ],
+    "features": [
+      {
+        "value": "Interface conversationnelle intelligente pour les collaborateurs",
+        "icon": "RiRobotLine",
+        "color": "#3B82F6"
+      },
+      {
+        "value": "Tableau de bord administrateur (gestion connaissances & logs)",
+        "icon": "RiAdminLine",
+        "color": "#10B981"
+      },
+      {
+        "value": "Sécurisation des accès et conformité aux exigences bancaires",
+        "icon": "RiShieldCheckLine",
+        "color": "#8B5CF6"
+      },
+      {
+        "value": "Documentation technique complète et guides de déploiement",
+        "icon": "RiFileTextLine",
+        "color": "#F59E0B"
+      }
+    ],
+    "technologies": [
+      {
+        "value": "Java & Spring Boot",
+        "icon": "SiSpringboot",
+        "color": "#6DB33F",
+        "description": "Architecture backend, API REST et services métiers"
+      },
+      {
+        "value": "TypeScript",
+        "icon": "SiTypescript",
+        "color": "#3178C6",
+        "description": "Typage strict et robustesse applicative"
+      },
+      {
+        "value": "React",
+        "icon": "SiReact",
+        "color": "#61DAFB",
+        "description": "Développement des interfaces utilisateur et administrateur"
+      },
+      {
+        "value": "Tests (JUnit & Jest)",
+        "icon": "SiJest",
+        "color": "#C21325",
+        "description": "Tests unitaires, mocks Mockito et intégration"
+      },
+      {
+        "value": "Docker & DevOps",
+        "icon": "SiDocker",
+        "color": "#2496ED",
+        "description": "Conteneurisation et préparation au déploiement"
+      }
+    ]
+  },
+  {
+    "id": "mybigdata-sg",
+    "title": "Plateforme MyBigData (Données Massives)",
+    "company": "Société Générale",
+    "year": "2022 - 2024",
+    "date": "Sept 2022 - Août 2024",
+    "lieu": "Fontenay-sous-Bois, France",
+    "type": "Projet Professionnel",
+    "lien": "",
+    "images": [
+      "/images/mejestic.jpg",
+      "/images/apex.jpg"
+    ],
+    "description": "Développement et maintenance de l'application interne critique MyBigData, dédiée à l'exploitation et l'analyse de plusieurs millions de lignes de données bancaires.\n\nObjectif : Garantir la haute performance de traitement, la fiabilité des calculs et offrir des tableaux de bord interactifs pour les analystes.\n\nRéalisations :\n• Développement de services backend Java / Spring Boot optimisés pour le traitement de volumes massifs\n• Conception d'interfaces ergonomiques sous React et TypeScript fidèles aux maquettes Figma\n• Interfaçage avec les bases de données relationnelles et SQL (PostgreSQL, Oracle)\n• Mise en œuvre de suites de tests rigoureuses (JUnit, Mockito) et contrôle continu de la qualité logicielle via SonarQube\n• Participation aux rituels Agile Scrum et collaboration avec les équipes DevOps pour les pipelines CI/CD\n\nNB: Application critique en production soumise à des exigences strictes de fiabilité et de gouvernance de données.",
+    "results": [
+      {
+        "metric": "Volume traité",
+        "value": "Millions de lignes",
+        "description": "Exploitation et analyse de données massives"
+      },
+      {
+        "metric": "Qualité logicielle",
+        "value": "Excellente",
+        "description": "Contrôle qualité continu avec SonarQube"
+      },
+      {
+        "metric": "Méthode",
+        "value": "Agile Scrum",
+        "description": "Coordination fluide avec les équipes DevOps"
+      }
+    ],
+    "features": [
+      {
+        "value": "Traitement et agrégation de flux de données massifs",
+        "icon": "RiDatabase2Line",
+        "color": "#3B82F6"
+      },
+      {
+        "value": "Interfaces interactives basées sur des maquettes Figma",
+        "icon": "RiDashboardLine",
+        "color": "#10B981"
+      },
+      {
+        "value": "Services modulaires et maintenabilité du code",
+        "icon": "RiCodeBoxLine",
+        "color": "#8B5CF6"
+      },
+      {
+        "value": "Assurance qualité continue (SonarQube, JUnit, Jest)",
+        "icon": "RiCheckDoubleLine",
+        "color": "#F59E0B"
+      }
+    ],
+    "technologies": [
+      {
+        "value": "Java & Spring Boot",
+        "icon": "SiSpringboot",
+        "color": "#6DB33F",
+        "description": "Services backend robustes et traitement métier"
+      },
+      {
+        "value": "React & TypeScript",
+        "icon": "SiReact",
+        "color": "#61DAFB",
+        "description": "Composants d'interface modernes et performants"
+      },
+      {
+        "value": "PostgreSQL & SQL",
+        "icon": "SiPostgresql",
+        "color": "#4169E1",
+        "description": "Stockage structuré et requêtes optimisées"
+      },
+      {
+        "value": "SonarQube",
+        "icon": "SiSonarqube",
+        "color": "#4E9BCD",
+        "description": "Analyse statique et maintien de la qualité logicielle"
+      },
+      {
+        "value": "Git & CI/CD",
+        "icon": "SiGit",
+        "color": "#F05032",
+        "description": "Intégration continue et coordination des livrables"
+      }
+    ]
+  },
+  {
+    "id": "cloud-k8s-aws",
+    "title": "Déploiement Cloud & Orchestration Kubernetes",
+    "company": "Projet Cloud & DevOps Personnel",
+    "year": "2025",
+    "date": "Juil 2025 - Août 2025",
+    "lieu": "Maurepas, France",
+    "type": "Projet Cloud & DevOps",
+    "lien": "",
+    "images": [
+      "/images/taskflow.jpg",
+      "/images/corporation.jpg"
+    ],
+    "description": "Conception, conteneurisation et déploiement d'une architecture multi-services distribuée sur le Cloud AWS avec Kubernetes.\n\nObjectif : Mettre en œuvre une infrastructure hautement disponible, résiliente et élastique respectant les bonnes pratiques Cloud.\n\nRéalisations :\n• Conteneurisation de chaque microservice avec Docker (images optimisées multi-stage)\n• Orchestration des conteneurs via des manifests Kubernetes (Deployments, Services, Ingress)\n• Déploiement des nœuds de calcul sur AWS EC2\n• Gestion de la persistance des données relationnelles avec AWS RDS\n• Stockage d'objets sécurisé et haute durabilité sur AWS S3\n• Mise en place des principes d'architecture distribuée et de haute disponibilité\n\nNB: Projet illustrant la maîtrise concrète du cycle de déploiement et d'orchestration Cloud AWS.",
+    "results": [
+      {
+        "metric": "Disponibilité",
+        "value": "Haute Disponibilité",
+        "description": "Architecture distribuée et tolérante aux pannes"
+      },
+      {
+        "metric": "Services AWS",
+        "value": "EC2, RDS, S3",
+        "description": "Calcul, base de données managée et stockage d'objets"
+      },
+      {
+        "metric": "Orchestration",
+        "value": "Kubernetes",
+        "description": "Gestion automatisée des conteneurs applicatifs"
+      }
+    ],
+    "features": [
+      {
+        "value": "Architecture multi-services distribuée et hautement disponible",
+        "icon": "RiCloudLine",
+        "color": "#3B82F6"
+      },
+      {
+        "value": "Conteneurisation Docker avec builds légers et optimisés",
+        "icon": "RiServerLine",
+        "color": "#10B981"
+      },
+      {
+        "value": "Orchestration Kubernetes (Deployments, Services, ConfigMaps)",
+        "icon": "RiCpuLine",
+        "color": "#8B5CF6"
+      },
+      {
+        "value": "Persistance des données via AWS RDS et stockage AWS S3",
+        "icon": "RiDatabase2Line",
+        "color": "#F59E0B"
+      }
+    ],
+    "technologies": [
+      {
+        "value": "AWS (EC2, RDS, S3)",
+        "icon": "SiAmazonwebservices",
+        "color": "#FF9900",
+        "description": "Infrastructure cloud public scalable et sécurisée"
+      },
+      {
+        "value": "Kubernetes",
+        "icon": "SiKubernetes",
+        "color": "#326CE5",
+        "description": "Orchestration, déploiement et résilience des conteneurs"
+      },
+      {
+        "value": "Docker",
+        "icon": "SiDocker",
+        "color": "#2496ED",
+        "description": "Conteneurisation et standardisation des environnements"
+      },
+      {
+        "value": "Linux & Shell",
+        "icon": "SiLinux",
+        "color": "#FCC624",
+        "description": "Scripts d'automatisation et gestion système"
+      }
+    ]
+  },
+  {
+    "id": "drone-face-tracking",
+    "title": "Suivi de Visages par Drone (IA Embarquée)",
+    "company": "Projet Personnel IA & Vision",
+    "year": "2025",
+    "date": "Jan 2025 - Mars 2025",
+    "lieu": "Maurepas, France",
+    "type": "IA & Vision par Ordinateur",
+    "lien": "",
+    "images": [
+      "/images/apex.jpg",
+      "/images/mejestic.jpg"
+    ],
+    "description": "Développement d'un système intelligent de pilotage automatique et manuel d'un drone avec suivi de personnes en temps réel par reconnaissance faciale.\n\nObjectif : Assurer le tracking fluide d'un visage à l'aide de la caméra embarquée et asservir la trajectoire du drone en temps réel.\n\nRéalisations :\n• Développement du système de pilotage manuel et automatique du drone\n• Traitement du flux vidéo en temps réel et capture média via la caméra embarquée\n• Intégration logiciel-matériel et algorithmes de vision par ordinateur pour la reconnaissance faciale\n• Calcul des correcteurs de trajectoire pour maintenir le sujet centré\n\nNB: Projet combinant traitement d'images temps réel, algorithmes d'IA et asservissement matériel.",
+    "results": [
+      {
+        "metric": "Flux vidéo",
+        "value": "Temps réel",
+        "description": "Traitement continu de la caméra embarquée"
+      },
+      {
+        "metric": "Tracking",
+        "value": "Reconnaissance faciale",
+        "description": "Détection précise et suivi dynamique"
+      },
+      {
+        "metric": "Pilotage",
+        "value": "Manuel & Automatique",
+        "description": "Contrôle logiciel-matériel complet"
+      }
+    ],
+    "features": [
+      {
+        "value": "Système de pilotage mixte (manuel et asservi automatique)",
+        "icon": "RiSendPlaneLine",
+        "color": "#3B82F6"
+      },
+      {
+        "value": "Reconnaissance faciale et suivi dynamique de cible",
+        "icon": "RiEyeLine",
+        "color": "#10B981"
+      },
+      {
+        "value": "Traitement du flux vidéo en direct haute performance",
+        "icon": "RiVideoLine",
+        "color": "#8B5CF6"
+      },
+      {
+        "value": "Intégration étroite entre couches logicielles et matérielles",
+        "icon": "RiCpuLine",
+        "color": "#F59E0B"
+      }
+    ],
+    "technologies": [
+      {
+        "value": "Python",
+        "icon": "SiPython",
+        "color": "#3776AB",
+        "description": "Programmation des algorithmes et communication avec le drone"
+      },
+      {
+        "value": "OpenCV",
+        "icon": "SiOpencv",
+        "color": "#5C3EE8",
+        "description": "Traitement d'images et vision par ordinateur"
+      },
+      {
+        "value": "IA & Vision",
+        "icon": "SiTensorflow",
+        "color": "#FF6F00",
+        "description": "Modèles de détection et reconnaissance faciale"
+      }
+    ]
+  }
+]
