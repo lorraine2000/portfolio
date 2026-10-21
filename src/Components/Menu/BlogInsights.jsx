@@ -1,75 +1,174 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
-  Cpu, 
-  Settings, 
-  Wifi, 
+  Sparkles,
+  Tv, 
+  Cloud,
+  Database,
+  Shield,
   Calendar, 
   Clock, 
   ArrowRight, 
   ArrowLeft,
-  Sparkles,
-  Tv,
-  Users
+  Search,
+  BookOpen,
+  Check,
+  Copy
 } from 'lucide-react';
 
 const blogPosts = [
   {
     id: 1,
+    title: "Les avancées de l'IA générative : Claude, agents autonomes et automatisation logicielle",
+    category: "IA & Automatisation",
+    excerpt: "Comment les LLMs de nouvelle génération (Claude 3.5 Sonnet), le Model Context Protocol (MCP) et les agents autonomes transforment le cycle de vie du développement logiciel et automatisent les tâches techniques complexes.",
+    date: "Octobre 2025",
+    readTime: "10 min",
+    icon: Sparkles,
+    gradient: "from-blue-600 to-indigo-600",
+    tags: ["IA Générative", "Claude 3.5", "Agents Autonomes", "MCP", "Automatisation", "DevOps"],
+    image: "/images/ia.png",
+    content: `
+# Les avancées de l'IA générative : Claude, agents autonomes et automatisation logicielle
+
+L'intelligence artificielle générative a franchi un cap décisif : nous sommes passés des simples chatbots conversationnels à des **agents autonomes capables de raisonner, d'interagir avec des outils réels et d'automatiser des processus d'ingénierie logicielle de bout en bout**.
+
+Dans cet article, je partage mon analyse et mon retour d'expérience sur l'utilisation des modèles d'Anthropic (**Claude 3.5 Sonnet**), le standard émergent **Model Context Protocol (MCP)** et la mise en œuvre d'agents pour démultiplier l'efficacité des équipes de développement.
+
+---
+
+## 1. Claude 3.5 Sonnet : Le bond qualitatif en raisonnement et code
+
+Parmi les modèles actuels, **Claude 3.5 Sonnet** d'Anthropic s'est imposé comme une référence majeure pour les ingénieurs logiciels :
+- **Compréhension architecturale globale** : Avec une fenêtre de contexte de 200 000 tokens, le modèle est capable d'analyser un dépôt de code entier, d'identifier les dépendances croisées et de proposer des refactorisations cohérentes.
+- **Rigueur syntaxique et logique** : Génération de code Java (Spring Boot), TypeScript ou configurations d'infrastructure (Terraform, Kubernetes) avec un taux d'hallucination remarquablement bas.
+- **Approche *Constitutional AI*** : Respect strict des contraintes de sécurité et des garde-fous imposés aux systèmes d'entreprise.
+
+---
+
+## 2. Des LLMs aux Agents Autonomes : Le pattern ReAct
+
+Un modèle de langage seul génère du texte ; un **agent autonome**, en revanche, est doté de la capacité de percevoir son environnement, de planifier des actions et d'exécuter des outils externes via le pattern **ReAct (Raisonnement + Action)**.
+
+### Architecture d'un agent d'automatisation :
+1. **Perception** : L'agent reçoit une consigne (ex: "Diagnostiquer l'erreur 500 sur le microservice de paiement et proposer un fix").
+2. **Raisonnement (Thinking)** : Le LLM décompose la consigne en sous-tâches ordonnées.
+3. **Appel d'outils (Tool Calling)** : L'agent interroge des APIs ou exécute des commandes via des connecteurs sécurisés (logs CloudWatch, requêtes SQL, exécution de tests JUnit).
+4. **Observation & Boucle d'ajustement** : L'agent analyse le retour de l'outil et corrige sa trajectoire jusqu'à l'atteinte du résultat.
+
+\`\`\`python
+# Exemple conceptuel d'agent ReAct pour le diagnostic automatique
+from langchain_anthropic import ChatAnthropic
+from langchain.agents import create_tool_calling_agent, AgentExecutor
+from langchain.tools import tool
+
+@tool
+def fetch_cloudwatch_logs(service_name: str, limit: int = 50) -> str:
+    """Interroge les logs d'un microservice pour extraire les stacktraces récentes."""
+    # Appel vers l'API AWS CloudWatch Logs
+    return f"Logs extraits pour {service_name}: NullPointerException ligne 42"
+
+@tool
+def trigger_junit_tests(branch_name: str) -> str:
+    """Lance la suite de tests automatisée sur une branche Git."""
+    return "BUILD SUCCESS: 142 tests passes, 0 failures"
+
+llm = ChatAnthropic(model="claude-3-5-sonnet-20241022", temperature=0)
+tools = [fetch_cloudwatch_logs, trigger_junit_tests]
+agent = create_tool_calling_agent(llm, tools, prompt)
+executor = AgentExecutor(agent=agent, tools=tools, verbose=True)
+\`\`\`
+
+---
+
+## 3. Le Model Context Protocol (MCP) : Révolutionner l'interconnexion
+
+L'un des freins majeurs aux agents était la multiplication d'intégrations API ad hoc. L'émergence du **Model Context Protocol (MCP)** standardise la façon dont un modèle accède aux ressources de l'entreprise :
+- **Serveurs MCP locaux et distants** : Connexion unifiée à GitHub, GitLab, bases PostgreSQL, clusters Kubernetes ou documentation Notion.
+- **Sécurité et granularité** : Chaque action requiert une permission explicite (lecture seule ou écriture conditionnelle).
+
+---
+
+## 4. Cas d'usage concrets en entreprise
+
+L'automatisation par agents IA apporte une valeur immédiate sur plusieurs maillons de la chaîne logicielle :
+- **Génération automatique de tests unitaires et de non-régression** : Analyse des méthodes critiques et écriture de tests Mockito/JUnit couvrant les cas limites (*edge cases*).
+- **Triage et diagnostic d'incidents de production** : Regroupement automatique des alertes Prometheus/Sentry, corrélation avec les derniers déploiements Git, et proposition de correctifs pré-validés.
+- **Revue de code DevSecOps** : Détection en amont des vulnérabilités OWASP, des fuites de mémoire ou des anti-patterns d'architecture avant la validation de la Pull Request.
+
+---
+
+## 5. Bonnes pratiques et vigilance
+
+L'intégration d'agents autonomes exige rigueur et gouvernance :
+- **Garder l'humain dans la boucle (*Human-in-the-loop*)** : Aucune mise en production ou modification de schéma de base de données ne doit être exécutée sans validation humaine.
+- **Isolation des environnements** : Exécuter les agents dans des conteneurs sandboxés avec des droits moindres (*least privilege*).
+- **Observabilité des décisions** : Logger chaque étape de raisonnement de l'agent pour auditer les décisions prises.
+
+**Conclusion :** L'IA générative et les agents autonomes ne remplacent pas les ingénieurs logiciels : ils amplifient leur impact en éliminant les tâches répétitives pour leur permettre de se concentrer sur l'architecture, la résilience et la valeur métier.
+    `
+  },
+  {
+    id: 2,
     title: "Réalité Virtuelle et Réalité Augmentée – Blender, Unity et Meta Quest 3",
-    category: "VR/AR & Simulation",
-    excerpt: "Création d'un espace bureau virtuel : modélisation 3D sous Blender, développement des interactions sous Unity (C#) et déploiement sur casque autonome Meta Quest 3.",
-    date: "Mai 2025",
+    category: "VR/AR & 3D",
+    excerpt: "Conception d'un espace interactif en immersion : modélisation 3D sous Blender, développement des interactions physiques en C# sous Unity et déploiement optimisé sur casque autonome Meta Quest 3.",
+    date: "Août 2025",
     readTime: "12 min",
     icon: Tv,
-    gradient: "from-purple-500 to-pink-500",
-    tags: ["VR", "AR", "Blender", "Unity", "Meta Quest 3", "C#"],
+    gradient: "from-purple-600 to-indigo-600",
+    tags: ["VR", "Unity", "Blender", "Meta Quest 3", "C#", "Physique 3D"],
     image: "/images/VRARR.png",
     content: `
 # Réalité Virtuelle et Réalité Augmentée – Blender, Unity et Meta Quest 3
 
-La réalité virtuelle (VR) et la réalité augmentée (AR) ouvrent des possibilités infinies pour créer des expériences immersives, que ce soit pour le divertissement, la formation ou la simulation industrielle. Dans cet article, je vous partage mon retour d'expérience sur la création d'un espace bureau virtuel, de la modélisation 3D au déploiement sur casque autonome.
+La réalité virtuelle (VR) et la réalité augmentée (AR) ouvrent des perspectives majeures pour la simulation, la formation immersive et les interfaces 3D de nouvelle génération. Dans cet article, je partage mon retour d'expérience complet sur la conception d'un espace virtuel interactif, de la modélisation 3D au déploiement sur casque autonome.
 
-## Pourquoi se lancer dans la VR/AR aujourd'hui ?
+---
 
-Les technologies VR/AR ont considérablement évolué ces dernières années. Les casques sont devenus autonomes (plus besoin de PC puissant), les moteurs 3D sont plus accessibles que jamais (Unity, Unreal Engine, Godot), et les outils de modélisation comme Blender offrent des fonctionnalités professionnelles gratuitement.
+## 1. La vision et les objectifs du projet
 
-C'est dans ce contexte que j'ai décidé de créer un espace bureau virtuel interactif. L'objectif était simple : reproduire un environnement de bureau en 3D où l'utilisateur peut interagir avec les objets, les déplacer, et expérimenter les lois de la physique dans un espace immersif.
+L'objectif était de créer un environnement 3D immersif et fluide, exécuté directement sur le processeur embarqué du casque **Meta Quest 3**, sans nécessiter de PC de calcul externe.
 
-## Blender – La modélisation 3D
+**Les défis techniques clés :**
+- Concevoir des assets 3D optimisés en nombre de polygones pour respecter le budget de rendu mobile.
+- Programmer un système physique réaliste pour la saisie et la manipulation d'objets en temps réel.
+- Maintenir un taux de rafraîchissement stable de **72 images par seconde** pour éviter tout phénomène de cinétose (*motion sickness*).
 
-Pour créer les objets du bureau virtuel, j'ai utilisé Blender, un logiciel de modélisation 3D open source extrêmement puissant.
+---
 
-**Ce que j'ai modélisé :**
-- Un bureau avec tiroirs et plateau de travail
-- Une chaise ergonomique
-- Des accessoires (ordinateur, clavier, souris, livres, mug)
-- Des éléments de décor (lampes, plantes, posters)
+## 2. Modélisation 3D sous Blender
 
-Chaque objet a été texturé avec soin pour rendre l'environnement réaliste. J'ai utilisé des textures PBR (Physically Based Rendering) pour les matériaux comme le bois, le métal et le plastique. L'exportation s'est faite au format FBX, compatible avec Unity.
+Pour créer les objets de l'environnement virtuel, j'ai utilisé **Blender** :
+- **Low-poly modeling** : Conception d'un bureau complet, de fauteuils ergonomiques et d'équipements informatiques tout en limitant le décompte de polygones.
+- **Matériaux PBR (Physically Based Rendering)** : Textures optimisées (Albedo, Normal Map, Roughness) pour reproduire fidèlement l'aspect du bois, du plastique et des surfaces métalliques.
+- **Exportation optimisée** : Format FBX avec hiérarchie propre des pivots pour faciliter l'ancrage des mains dans le moteur de jeu.
 
-## Unity – Le développement des interactions
+---
 
-Une fois les modèles 3D importés dans Unity, la partie la plus intéressante a commencé : donner vie à l'environnement avec des interactions.
+## 3. Développement des interactions sous Unity (C#)
 
-**Les interactions implémentées :**
+L'interactivité a été développée sous **Unity** en exploitant le standard **OpenXR** et le package **XR Interaction Toolkit**.
 
-1. **Déplacement d'objets** : L'utilisateur peut saisir n'importe quel objet (un livre, un mug, une souris) avec les contrôleurs du Meta Quest 3, le déplacer dans l'espace, et le relâcher où il le souhaite.
-
-2. **Gestion des propriétés physiques** : Chaque objet possède un rigidbody (corps rigide) et des colliders (collisionneurs). Ainsi, lorsque l'utilisateur lâche un objet, il tombe, rebondit, et interagit avec les autres objets. Les frottements, masses et rebonds sont paramétrables.
-
-3. **Téléportation** : Pour se déplacer dans l'environnement virtuel (nécessaire car l'espace réel est limité), j'ai implémenté un système de téléportation : l'utilisateur pointe une zone au sol avec un laser virtuel, relâche la gâchette, et se retrouve instantanément à cet endroit.
-
-4. **Retour haptique** : À chaque interaction (prise d'objet, téléportation, validation), les contrôleurs vibrent pour renforcer l'immersion.
-
-**Le code des interactions (C#) :**
+### Fonctionnalités implémentées :
+1. **Saisie d'objets avec vélocité naturelle** : Lors du relâchement d'un objet, sa vitesse et sa trajectoire angulaire sont calculées pour une physique réaliste.
+2. **Déplacement par téléportation parabolique** : Pour naviguer dans une pièce plus grande que l'espace physique réel.
+3. **Retours haptiques personnalisés** : Vibration dosée des contrôleurs Touch Plus à l'impact et à la saisie.
 
 \`\`\`csharp
+using UnityEngine;
+
 public class GrabObject : MonoBehaviour
 {
     private bool isGrabbed = false;
     private Transform controller;
-    
+    private Rigidbody rb;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
     void Update()
     {
         if (controller != null && isGrabbed)
@@ -78,431 +177,391 @@ public class GrabObject : MonoBehaviour
             transform.rotation = controller.rotation;
         }
     }
-    
+
     public void OnGrab(Transform hand)
     {
         isGrabbed = true;
         controller = hand;
-        GetComponent<Rigidbody>().isKinematic = true;
+        rb.isKinematic = true;
     }
-    
-    public void OnRelease()
+
+    public void OnRelease(Vector3 releaseVelocity, Vector3 releaseAngularVelocity)
     {
         isGrabbed = false;
         controller = null;
-        GetComponent<Rigidbody>().isKinematic = false;
-        GetComponent<Rigidbody>().velocity = GetVelocity();
+        rb.isKinematic = false;
+        rb.linearVelocity = releaseVelocity;
+        rb.angularVelocity = releaseAngularVelocity;
     }
 }
 \`\`\`
 
-## Meta Quest 3 – Le déploiement
+---
 
-Le Meta Quest 3 est un casque VR autonome développé par Meta. Ses atouts sont nombreux :
-- Pas besoin de PC : tout le calcul est embarqué
-- Tracking des mains sans manettes (optionnel)
-- Qualité d'affichage impressionnante (pancake lenses, résolution 2064x2208 par œil)
-- Prix accessible pour les développeurs
+## 4. Déploiement et optimisations sur Meta Quest 3
 
-**Pour déployer mon application :**
-1. Installation du SDK Oculus Integration dans Unity
-2. Configuration des paramètres de build (Android, arm64, OpenXR)
-3. Activation du mode développeur sur le Quest 3
-4. Build et installation via ADB (Android Debug Bridge)
+Le Meta Quest 3 embarque le chipset Snapdragon XR2 Gen 2 sous Android. Le déploiement s'effectue via l'**Android Debug Bridge (ADB)**.
 
-## Résultat final
+### Optimisations indispensables :
+- **Occlusion Culling** : Masquer le calcul des objets situés hors du champ de vision de l'utilisateur.
+- **Texture Compression ASTC** : Réduction de l'empreinte mémoire vidéo sans perte de qualité perceptible.
+- **Single Pass Instanced Rendering** : Rendu des deux yeux en une seule passe de calcul GPU.
 
-L'application fonctionne parfaitement sur le Meta Quest 3. L'utilisateur peut explorer l'espace bureau virtuel, interagir avec tous les objets, et expérimenter la physique en temps réel. Les performances sont fluides (72 FPS constants) grâce à l'optimisation des modèles et du code.
-
-**Ce que j'ai appris :**
-- Maîtriser Blender pour la modélisation 3D
-- Comprendre l'écosystème Unity (GameObjects, Composants, Scènes)
-- Programmer en C# pour les interactions
-- Configurer un projet VR pour casque autonome
-- Optimiser les performances (réduction du nombre de polygones, LOD, occlusion culling)
-
-## Perspectives
-
-Cette expérience m'a donné envie d'aller plus loin. Je pense explorer :
-- Le multijoueur (plusieurs utilisateurs dans le même espace virtuel)
-- La reconnaissance gestuelle (sans manettes)
-- L'intégration de contenu généré par IA
-- Des applications plus sérieuses (formation industrielle, maintenance à distance)
-
-La VR/AR est un domaine fascinant en pleine expansion. Si vous voulez vous lancer, commencez par Blender pour la modélisation, Unity pour le développement, puis faites l'acquisition d'un Meta Quest 2 ou 3 pour tester. La courbe d'apprentissage est un peu raide, mais le jeu en vaut la chandelle !
-    `
-  },
-  {
-    id: 2,
-    title: "Communication industrielle : Modbus, Profibus, MQTT – Lequel choisir ?",
-    category: "Réseaux Industriels",
-    excerpt: "Comparatif des protocoles de communication industrielle. Modbus pour la collecte terrain, Profibus pour le temps réel, MQTT pour l'IIoT cloud.",
-    date: "Avril 2025",
-    readTime: "10 min",
-    icon: Wifi,
-    gradient: "from-cyan-500 to-blue-600",
-    tags: ["Modbus", "Profibus", "MQTT", "IIoT", "Réseaux Industriels"],
-    image: "/images/comunication.png",
-    content: `
-# Communication industrielle : Modbus, Profibus, MQTT – Lequel choisir ?
-
-Dans l'industrie, les automates, capteurs et actionneurs doivent communiquer. Le choix du protocole est stratégique.
-
-## Modbus – Le protocole universel
-
-Modbus a été créé en 1979 par Modicon. C'est le protocole le plus ancien et le plus répandu. Deux variantes existent :
-- **Modbus RTU** : transmission série sur RS-485, distance jusqu'à 1200 mètres
-- **Modbus TCP** : version sur Ethernet, compatible avec les réseaux d'entreprise
-
-**Avantages :** simple, ouvert, compatible avec presque tous les équipements
-**Inconvénients :** pas de sécurité intégrée, pas de temps réel dur
-
-## Profibus – Le standard européen
-
-Profibus est un protocole développé par Siemens. Il garantit un temps réel déterministe (< 1ms).
-
-**Avantages :** temps réel, diagnostic poussé, large gamme d'équipements
-**Inconvénients :** complexe à mettre en œuvre, écosystème coûteux
-
-## MQTT – La révolution IIoT
-
-MQTT est un protocole léger publish/subscribe, idéal pour l'IoT industriel.
-
-**Avantages :** très léger, découplage émetteurs/récepteurs, parfait pour le cloud
-**Inconvénients :** nécessite un broker, pas de temps réel dur
-
-## Tableau comparatif
-
-| Protocole | Débit max | Distance | Temps réel | Sécurité |
-|-----------|-----------|----------|------------|----------|
-| Modbus RTU | 115,2 kbps | 1200 m | Non | Non |
-| Modbus TCP | 100 Mbps | Réseau | Non | Non |
-| Profibus DP | 12 Mbps | 100 m | Oui (<1ms) | Limitée |
-| MQTT | Variable | Internet | Non | TLS |
-
-## Retour d'expérience terrain
-
-Sur mon projet Labred, j'ai utilisé Modbus RTU pour interroger l'onduleur hybride Felicity, et MQTT pour remonter les données vers Azure IoT Hub. Un ESP32 a servi de passerelle.
-
-**Conclusion :** privilégiez MQTT pour l'IIoT, Modbus pour la collecte terrain, Profibus pour les applications temps réel critiques.
+**Conclusion :** Cette réalisation démontre la polyvalence requise entre la modélisation 3D, le développement orienté objet rigoureux en C# et l'optimisation poussée des ressources mémoire et processeur sur architecture mobile.
     `
   },
   {
     id: 3,
-    title: "PLC Programming : Ladder vs Structured Text – Quand utiliser chaque langage ?",
-    category: "Automatisme",
-    excerpt: "Comparaison des deux langages de programmation d'automates. Ladder pour la logique de sécurité, Structured Text pour les algorithmes complexes.",
-    date: "Mars 2025",
+    title: "Architecture Cloud sur AWS : Déployer des microservices avec Kubernetes (EKS) et Terraform",
+    category: "Cloud & DevOps",
+    excerpt: "Guide d'architecture Cloud : conteneurisation multi-stage Docker, provisionnement d'infrastructure as Code (IaC) avec Terraform et orchestration sur un cluster Amazon EKS hautement disponible.",
+    date: "Juin 2025",
     readTime: "11 min",
-    icon: Settings,
-    gradient: "from-green-500 to-emerald-600",
-    tags: ["PLC", "Ladder", "Structured Text", "Siemens", "TIA Portal"],
-    image: "/images/programming.png",
+    icon: Cloud,
+    gradient: "from-sky-600 to-blue-600",
+    tags: ["AWS", "Kubernetes", "Terraform", "EKS", "Docker", "IaC"],
+    image: "/images/blog_etl.png",
     content: `
-# PLC Programming : Ladder vs Structured Text – Quand utiliser chaque langage ?
+# Architecture Cloud sur AWS : Déployer des microservices avec Kubernetes (EKS) et Terraform
 
-Les langages de programmation d'automates (PLC) sont normés par la CEI 61131-3. Ladder Diagram (LD) et Structured Text (ST) sont les plus utilisés.
+Dans les architectures logicielles modernes, la robustesse d'une application dépend autant de son infrastructure que de son code source. L'association d'**Amazon Web Services (AWS)**, de **Kubernetes (Amazon EKS)** et de l'**Infrastructure as Code (Terraform)** constitue le standard de référence pour les systèmes critiques nécessitant haute disponibilité et scalabilité.
 
-## Ladder Diagram (LD) – Le langage graphique
+---
 
-Le Ladder Diagram est hérité du schéma électrique à relais.
+## 1. Pourquoi le choix d'Amazon EKS ?
 
-**Avantages :**
-- Très intuitif pour les électrotechniciens
-- Débogage visuel (couleurs)
-- Idéal pour la logique de sécurité
+Gérer son propre cluster Kubernetes sur des machines virtuelles EC2 brutes est complexe et risqué. **Amazon EKS (Elastic Kubernetes Service)** délègue à AWS la gestion du *Control Plane* (API Server, etcd) avec une garantie de disponibilité de 99,95 % :
+- Déploiement multi-AZ automatique du plan de contrôle.
+- Intégration native avec IAM pour la gestion fine des accès aux pods (IRSA - IAM Roles for Service Accounts).
+- Autoscaling horizontal (HPA) et gestion dynamique des nœuds avec Karpenter ou Cluster Autoscaler.
 
-**Inconvénients :**
-- Limité pour les mathématiques
-- Fastidieux pour les algorithmes complexes
+---
 
-## Structured Text (ST) – Le langage textuel
+## 2. Infrastructure as Code avec Terraform
 
-Le Structured Text s'inspire du Pascal et du C.
+L'ensemble de l'infrastructure est décrit de manière déclarative pour garantir la reproductibilité totale des environnements (Développement, Staging, Production).
 
-**Avantages :**
-- Compact et puissant
-- Idéal pour les calculs (PID, régulation)
-- Boucles et conditions complexes
+\`\`\`hcl
+# Extrait Terraform : Déclaration du cluster Amazon EKS
+module "eks" {
+  source  = "terraform-aws-modules/eks/aws"
+  version = "~> 20.0"
 
-**Inconvénients :**
-- Moins accessible aux non-informaticiens
-- Débogage moins visuel
+  cluster_name    = "production-cloud-cluster"
+  cluster_version = "1.30"
 
-## Exemple concret : Gestion d'un carrefour à feux sur Siemens S7-1200
+  cluster_endpoint_public_access = true
 
-**Partie Ladder (verrouillages de sécurité) :**
-\`\`\`ladder
-// Sécurité : les deux feux verts ne doivent jamais être actifs simultanément
-%Q0.0 (Vert_NS)   %Q0.3 (Vert_EO)   %M0.0 (Erreur)
------| |--------------| |--------------( )---
+  vpc_id                   = module.vpc.vpc_id
+  subnet_ids               = module.vpc.private_subnets
+  control_plane_subnet_ids = module.vpc.intra_subnets
+
+  eks_managed_node_groups = {
+    general_nodes = {
+      instance_types = ["t3.medium"]
+      min_size     = 2
+      max_size     = 5
+      desired_size = 2
+    }
+  }
+
+  tags = {
+    Environment = "production"
+    ManagedBy   = "Terraform"
+  }
+}
 \`\`\`
 
-**Partie Structured Text (temporisation et séquence) :**
-\`\`\`structuredtext
-CASE Etape OF
-    0: // Tout rouge
-        IF temps_attente > 5 THEN
-            Etape := 1;
-        END_IF;
-    1: // Vert Nord-Sud
-        IF temps_etape > 10 THEN
-            Etape := 2;
-        END_IF;
-    2: // Orange Nord-Sud
-        IF temps_etape > 3 THEN
-            Etape := 3;
-        END_IF;
-END_CASE;
+---
+
+## 3. Conteneurisation optimisée avec Docker
+
+Pour garantir la sécurité et la légèreté des images de conteneurs, nous utilisons le pattern **multi-stage build** :
+- Étape 1 (*builder*) : Compilation du projet Java avec Maven sur une image complète.
+- Étape 2 (*runner*) : Image d'exécution basée sur une image minimale **Distroless** ou **Alpine JRE**, sans compilateur ni utilitaires superflus, réduisant considérablement la surface d'attaque.
+- Exécution obligatoire avec un utilisateur non-root (*securityContext*).
+
+---
+
+## 4. Déploiement Kubernetes et Ingress Controller
+
+Le trafic extérieur est distribué via un **AWS Load Balancer Controller** configurant dynamiquement un Application Load Balancer (ALB) avec terminaison TLS et certificats gérés par AWS Certificate Manager.
+
+\`\`\`yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-service
+  namespace: production
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: backend-service
+  template:
+    metadata:
+      labels:
+        app: backend-service
+    spec:
+      containers:
+      - name: backend
+        image: 123456789.dkr.ecr.eu-west-3.amazonaws.com/backend:v1.2.0
+        ports:
+        - containerPort: 8080
+        resources:
+          limits:
+            cpu: "500m"
+            memory: "512Mi"
+          requests:
+            cpu: "200m"
+            memory: "256Mi"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
 \`\`\`
 
-## Meilleure pratique
+---
 
-| Tâche | Langage recommandé |
-|-------|-------------------|
-| Logique de sécurité | Ladder |
-| Interface I/O | Ladder |
-| Calculs PID | Structured Text |
-| Séquence complexe | Structured Text |
-| Communication | Structured Text |
+## 5. Monitoring & Observabilité
 
-**Conclusion :** Un bon programme mixe Ladder et Structured Text. Maîtrisez les deux, vous serez complet.
+Un cluster de production requiert une visibilité continue :
+- **Prometheus & Grafana** : Collecte des métriques d'infrastructure (CPU, mémoire, saturation réseau) et métriques applicatives (temps de réponse, débit).
+- **Amazon CloudWatch Container Insights** : Centralisation des logs applicatifs avec rétention paramétrable et alertes automatiques en cas de dépassement de seuil d'erreurs.
+
+**Conclusion :** Cette architecture offre une fondation Cloud résiliente capable d'absorber des pics de trafic tout en garantissant des déploiements sans interruption de service (*zero-downtime rolling updates*).
     `
   },
   {
     id: 4,
-    title: "ROS pour la robotique industrielle : Par où commencer ?",
-    category: "Robotique",
-    excerpt: "Introduction au Robot Operating System (ROS2). Concepts clés, installation, simulation et passage au matériel réel.",
-    date: "Février 2025",
+    title: "Microservices distribués avec Java 21, Spring Boot 3 et Apache Kafka",
+    category: "Architecture & Backend",
+    excerpt: "Comment concevoir des systèmes backend distribués traitant des millions de transactions : architecture orientée événements (EDA), pattern Transactional Outbox et patterns de tolérance aux pannes.",
+    date: "Avril 2025",
     readTime: "10 min",
-    icon: Cpu,
-    gradient: "from-indigo-500 to-purple-600",
-    tags: ["ROS", "ROS2", "Robotique", "Gazebo", "micro-ROS"],
-    image: "/images/ros.png",
+    icon: Database,
+    gradient: "from-emerald-600 to-teal-600",
+    tags: ["Java 21", "Spring Boot 3", "Apache Kafka", "Event-Driven", "Resilience4j", "Clean Architecture"],
+    image: "/images/blog_python.png",
     content: `
-# ROS pour la robotique industrielle : Par où commencer ?
+# Microservices distribués avec Java 21, Spring Boot 3 et Apache Kafka
 
-ROS (Robot Operating System) est un middleware open source qui facilite le développement d'applications robotiques.
+Dans les secteurs exigeants comme la finance ou l'e-commerce (comme lors de mes expériences sur des applications traitant des volumes massifs de données à la Société Générale), les architectures monolithiques atteignent rapidement leurs limites. 
 
-## ROS1 vs ROS2
+Pour garantir une disponibilité maximale et une mise à l'échelle horizontale, l'association de **Java 21**, **Spring Boot 3** et **Apache Kafka** s'impose comme le standard pour les architectures événementielles (*Event-Driven Architecture*).
 
-| Fonctionnalité | ROS1 | ROS2 |
-|----------------|------|------|
-| Temps réel | Non | Oui |
-| Sécurité | Non | TLS |
-| Embarqué | Lourd | micro-ROS |
-| Multirobot | Limité | Natif |
+---
 
-**Recommandation :** commencez directement par ROS2 (Humble Hawksbill).
+## 1. Découplage asynchrone : Pourquoi Kafka plutôt que REST ?
 
-## Concepts fondamentaux
+Dans une architecture par appels REST synchrones, la défaillance d'un microservice en aval provoque des blocages en cascade et dégrade l'ensemble du système.
 
-- **Nodes** : processus indépendants
-- **Topics** : communication publish/subscribe (asynchrone)
-- **Services** : requête/réponse (synchrone)
-- **Actions** : tâches longues avec feedback
-- **Launch files** : lancement de plusieurs nodes
+**Apache Kafka apporte :**
+- **Un découplage temporel total** : Le producteur publie un événement sans attendre que les consommateurs soient disponibles.
+- **Un débit massif** : Traitement de dizaines de milliers d'événements par seconde grâce au partitionnement et au stockage séquentiel sur disque.
+- **Une rejouabilité des messages** : Possibilité pour un consommateur de retraiter l'historique des événements en cas de reprise sur incident.
 
-## Installation sur Ubuntu 22.04
+---
 
-\`\`\`bash
-sudo apt update
-sudo apt install ros-humble-desktop
-source /opt/ros/humble/setup.bash
+## 2. Le pattern Transactional Outbox
+
+Le défi majeur des architectures distribuées réside dans la cohérence : comment mettre à jour une base de données relationnelle ET publier un événement Kafka dans une même opération sans risquer d'incohérence ?
+
+La solution recommandée est le **Transactional Outbox Pattern** :
+1. Dans la même transaction SQL locale, la commande métier est enregistrée ainsi qu'une ligne dans une table \`outbox_events\`.
+2. Un processus asynchrone (ou un connecteur Debezium via CDC) lit cette table et publie les événements dans le topic Kafka dédié.
+3. Aucune perte de données n'est possible, même en cas de crash réseau immédiat.
+
+\`\`\`java
+@Service
+@RequiredArgsConstructor
+public class OrderService {
+
+    private final OrderRepository orderRepository;
+    private final OutboxRepository outboxRepository;
+
+    @Transactional
+    public Order createOrder(OrderRequest request) {
+        // 1. Sauvegarde métier
+        Order order = orderRepository.save(new Order(request));
+
+        // 2. Enregistrement dans la table outbox (même transaction)
+        OutboxEvent event = OutboxEvent.builder()
+            .aggregateType("ORDER")
+            .aggregateId(order.getId().toString())
+            .eventType("ORDER_CREATED")
+            .payload(JsonUtils.toJson(order))
+            .createdAt(Instant.now())
+            .build();
+            
+        outboxRepository.save(event);
+        return order;
+    }
+}
 \`\`\`
 
-## Simuler avec Gazebo et Rviz
+---
 
-\`\`\`bash
-# Lancer TurtleBot3 en simulation
-ros2 launch turtlebot3_gazebo turtlebot3_world.launch.py
-ros2 launch turtlebot3_bringup rviz2.launch.py
-\`\`\`
+## 3. Tolérance aux pannes avec Resilience4j
 
-## Passer au matériel réel avec micro-ROS
+Dans Spring Boot 3, la bibliothèque **Resilience4j** permet de sécuriser les interactions externes :
+- **Circuit Breaker** : Détecte un taux d'erreur anormal vers un service tiers et ouvre le circuit pour éviter de saturer le système.
+- **Retry avec Backoff exponentiel** : Réessaie automatiquement les requêtes en cas d'erreurs réseau transitoires.
+- **Dead-Letter Topic (DLT)** : Si un message Kafka échoue à répétition après plusieurs tentatives, il est routé vers une file d'attente d'erreur pour analyse manuelle, sans bloquer le flux principal.
 
-micro-ROS permet de faire tourner ROS2 sur des microcontrôleurs (ESP32, STM32).
+---
 
-**Ressources :**
-- Documentation officielle : docs.ros.org
-- Formation : Robot Ignite Academy
-- Communauté : ROS Discourse
+## 4. Tests d'intégration fiables avec Testcontainers
 
-**Conclusion :** Commencez par la simulation, puis passez au matériel. La courbe d'apprentissage vaut le coup.
+Pour valider le bon fonctionnement de notre écosystème sans dépendre d'environnements distants instables, nous exploitons **Testcontainers** :
+- Démarrage automatique d'un vrai conteneur Docker PostgreSQL et Kafka lors de l'exécution des tests JUnit 5.
+- Validation des contrats d'événements et des comportements de rollback en conditions réelles.
+
+**Conclusion :** Une architecture événementielle bien conçue transforme la complexité distribuée en un système résilient, hautement disponible et prêt pour une croissance d'échelle soutenue.
     `
   },
   {
     id: 5,
-    title: "Les avancées de l'IA générative : Claude, agents autonomes, et l'industrie 4.0",
-    category: "Intelligence Artificielle",
-    excerpt: "Découverte de Claude (Anthropic), des agents autonomes, et comment ces technologies transforment la maintenance prédictive et le support technique.",
-    date: "Janvier 2025",
+    title: "Pipeline DevSecOps moderne : Automatiser la qualité et la sécurité avec GitHub Actions, SonarQube et Trivy",
+    category: "Cloud & DevOps",
+    excerpt: "Intégrer la sécurité dès la première ligne de code (Shift-Left) : mise en place d'un pipeline CI/CD automatisé avec analyse statique de code (SAST), audit des dépendances et scan de conteneurs.",
+    date: "Février 2025",
     readTime: "9 min",
-    icon: Sparkles,
-    gradient: "from-orange-500 to-red-500",
-    tags: ["IA", "Claude", "Agents", "Industrie 4.0", "Maintenance Prédictive"],
-    image: "/images/ia.png",
+    icon: Shield,
+    gradient: "from-slate-700 to-slate-900",
+    tags: ["DevSecOps", "CI/CD", "GitHub Actions", "SonarQube", "Trivy", "Sécurité"],
+    image: "/images/blog_Mistral.png",
     content: `
-# Les avancées de l'IA générative : Claude, agents autonomes, et l'industrie 4.0
+# Pipeline DevSecOps moderne : Automatiser la qualité et la sécurité avec GitHub Actions, SonarQube et Trivy
 
-L'IA générative n'est plus un gadget. En 2025, des modèles comme Claude d'Anthropic et les agents autonomes transforment l'industrie.
+Corriger une vulnérabilité de sécurité ou un bug critique en environnement de production coûte jusqu'à 30 fois plus cher que lors de la phase de développement. 
 
-## Focus sur Claude (Anthropic)
+Le mouvement **DevSecOps** et le principe du **Shift-Left** consistent à intégrer les vérifications de qualité, de conformité et de sécurité au plus tôt dans la boucle de développement, directement dans les pipelines d'intégration continue (**CI/CD**).
 
-- **Contexte long** : jusqu'à 200 000 tokens (manuels techniques complets)
-- **Sécurité** : Constitutional AI
-- **API accessible** : SDK Python/JS
+---
 
-**Applications industrielles :**
-- Analyse de logs d'automates sur plusieurs mois
-- Lecture de documentation technique
-- Génération de code PLC (Ladder, ST)
+## 1. Les 4 piliers d'un pipeline sécurisé
 
-## Les agents IA
+Un pipeline moderne ne se limite pas à compiler et packager : il contrôle chaque strate de l'application :
+1. **SAST (Static Application Security Testing)** : Analyse du code source sans l'exécuter pour détecter les failles (injections SQL, secrets hardcodés, mauvaises pratiques).
+2. **SCA (Software Composition Analysis)** : Détection des vulnérabilités connues (CVE) dans les librairies tierces et dépendances Maven / npm.
+3. **Container Scanning** : Audit de l'image Docker finale (OS de base, paquets système).
+4. **Quality Gates** : Blocage automatique du merge de la Pull Request si le score de couverture de tests ou de sécurité est insuffisant.
 
-Un agent IA est capable d'agir de manière autonome pour atteindre un objectif, en utilisant des outils.
+---
 
-**Architecture typique :**
-- Perception (capteurs, logs)
-- Raisonnement (LLM + planification)
-- Outils (API, base SQL, scripts)
-- Mémoire (historique)
+## 2. Le workflow CI/CD complet avec GitHub Actions
 
-## Applications dans l'industrie
+Voici un exemple de pipeline industriel exécuté à chaque Pull Request :
 
-### 1. Maintenance prédictive augmentée
-- Surveillance continue des signaux
-- Alerte dès que des anomalies sont détectées
-- Proposition d'actions correctives
+\`\`\`yaml
+name: CI/CD Pipeline & DevSecOps Gate
 
-### 2. Support technique assisté
-- Assistant vocal pour opérateurs
-- Accès instantané aux manuels
-- Génération pas à pas des instructions
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
 
-### 3. Analyse de données non structurées
-- Lecture des rapports d'intervention
-- Extraction automatique des causes racines
-- Alimentation d'une base de connaissances
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-## Exemple d'agent support PLC
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+          cache: maven
 
-\`\`\`python
-agent = create_react_agent(
-    llm=model,
-    tools=[
-        read_scada_logs,
-        query_database,
-        send_alert
-    ]
-)
-result = agent.invoke("Analyse les alarmes des 24 dernières heures")
+      - name: Run unit & integration tests
+        run: mvn clean verify
+
+      # Analyse statique avec SonarQube
+      - name: SonarQube Quality Gate Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: \${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: \${{ secrets.SONAR_HOST_URL }}
+
+      # Build du conteneur Docker
+      - name: Build Docker image
+        run: docker build -t my-app:\${{ github.sha }} .
+
+      # Scan de vulnérabilités avec Trivy
+      - name: Run Trivy Vulnerability Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: 'my-app:\${{ github.sha }}'
+          format: 'table'
+          exit-code: '1' # Échoue si une vulnérabilité CRITICAL est détectée
+          ignore-unfixed: true
+          severity: 'CRITICAL,HIGH'
 \`\`\`
 
-## Mise en garde
+---
 
-Les LLM peuvent halluciner. Il faut :
-- Valider les réponses
-- Restreindre les actions critiques
-- Garder l'humain dans la boucle
+## 3. Maîtriser la Quality Gate avec SonarQube
 
-**Conclusion :** L'IA générative est un levier puissant pour l'industrie 4.0. Commencez petit, par exemple l'analyse de vos logs.
-    `
-  },
-  {
-    id: 6,
-    title: "TechInov237 – Une vitrine technologique africaine",
-    category: "Communauté & Transmission",
-    excerpt: "TechInov237, une aventure collective pour démocratiser la technologie en Afrique : formations, création de contenu, et partage d'expériences.",
-    date: "Décembre 2024",
-    readTime: "10 min",
-    icon: Users,
-    gradient: "from-yellow-500 to-orange-500",
-    tags: ["TechInov237", "Afrique", "Formation", "Robotique", "Électronique"],
-    image: "/images/inov237.jpeg",
-    content: `
-# TechInov237 – Une vitrine technologique africaine
+Pour maintenir un code maintenable et pérenne sur le long terme :
+- Seuil de couverture de code minimum exigé sur le nouveau code (ex: 80 %).
+- Zéro *Security Hotspot* non vérifié.
+- Règle stricte : tout échec de la Quality Gate bloque le merge de la Pull Request, garantissant qu'aucune régression de qualité ne franchit le cap de la branche principale.
 
-TechInov237 est une aventure collective créée avec deux camarades pour vulgariser la technologie en Afrique et dans le monde.
+---
 
-## Pourquoi TechInov237 ?
+## 4. Retours d'expérience et bénéfices observés
 
-Le constat est simple : en Afrique, l'accès aux technologies avancées est difficile (coût du matériel, ressources pédagogiques rares). Pourtant, la soif d'apprendre est immense.
+L'adoption de ce standard automatisé transforme la sérénité des équipes techniques :
+- **Confiance absolue dans les déploiements** : Les déploiements en fin de journée ou le vendredi deviennent possibles car les tests et scans sont systématiques.
+- **Réduction drastique des failles de sécurité** : Les dépendances obsolètes sont identifiées avant même d'arriver en production.
+- **Délai de mise sur le marché accéléré** : Moins de phases manuelles d'audit avant livraison.
 
-**Notre mission :**
-- Partager nos expériences et projets
-- Former les jeunes (étudiants, professionnels)
-- Créer une communauté bienveillante
-
-## Notre domaine de prédilection
-
-- Robotique (ROS, Arduino)
-- Systèmes embarqués (STM32, ESP32)
-- Électronique (PCB, instrumentation)
-- Automatisme (PLC Siemens, SCADA)
-- Drones (PX4, ArduPilot)
-
-## Ce que nous faisons concrètement
-
-### 1. Des formations pour les jeunes
-
-Ateliers présentiels et en ligne : Arduino, robotique, électronique. Chaque participant repart avec des compétences pratiques.
-
-### 2. Une vitrine numérique
-
-Nous produisons du contenu pour partager nos connaissances :
-- Tutoriels vidéo
-- Articles techniques
-- Fichiers open source (schémas, code, designs 3D)
-
-### 3. La création de contenu
-
-Nous aimons la création de contenu sous toutes ses formes :
-- Infographie
-- Photogrammétrie
-- Montage vidéo (DaVinci Resolve)
-- Rédaction technique
-
-### 4. Une communauté grandissante
-
-Plusieurs centaines de membres sur nos réseaux (WhatsApp, Discord, GitHub). L'entraide est le maître-mot.
-
-## Exemple concret : atelier robotique à Douala
-
-Lors d'un week-end, nous avons réuni une quinzaine de participants. Au programme :
-- Matin : introduction aux microcontrôleurs (Arduino)
-- Montage d'un robot suiveur de ligne
-- Après-midi : programmation (C++) et compétition
-
-## Défis et apprentissages
-
-- **Approvisionnement** : trouver des composants au Cameroun est un défi
-- **Financement** : nous fonctionnons sur fonds propres
-- **Temps** : projet du soir et du week-end
-
-## Perspectives
-
-- Développer notre chaîne YouTube
-- Lancer des défis en ligne
-- Créer un FabLab mobile
-- Trouver des sponsors
-
-## Comment participer ?
-
-- Rejoignez notre communauté
-- Contribuez au contenu (tutoriels, idées)
-- Parrainez un étudiant
-- Devenez mentor
-
-**Conclusion :** TechInov237 prouve qu'avec de la volonté, on peut créer une communauté technologique dynamique même sans moyens colossaux. Le meilleur reste à venir.
+**Conclusion :** La sécurité n'est plus un goulot d'étranglement final mais un composant automatisé et transparent au service de la vélocité des développeurs.
     `
   }
+];
+
+const categories = [
+  "Tous",
+  "IA & Automatisation",
+  "Cloud & DevOps",
+  "Architecture & Backend",
+  "VR/AR & 3D"
 ];
 
 const BlogInsights = () => {
   const [selectedPost, setSelectedPost] = useState(null);
   const [hoveredId, setHoveredId] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("Tous");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [copiedCodeIndex, setCopiedCodeIndex] = useState(null);
+
+  // Filtrage intelligent par catégorie et recherche
+  const filteredPosts = useMemo(() => {
+    return blogPosts.filter((post) => {
+      const matchesCategory =
+        selectedCategory === "Tous" || post.category === selectedCategory;
+      const matchesSearch =
+        searchQuery.trim() === "" ||
+        post.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.excerpt.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        post.tags.some((tag) => tag.toLowerCase().includes(searchQuery.toLowerCase()));
+
+      return matchesCategory && matchesSearch;
+    });
+  }, [selectedCategory, searchQuery]);
+
+  const copyCode = (text, idx) => {
+    navigator.clipboard.writeText(text);
+    setCopiedCodeIndex(idx);
+    setTimeout(() => setCopiedCodeIndex(null), 2000);
+  };
 
   const formatContent = (content) => {
     const lines = content.split('\n');
@@ -516,15 +575,37 @@ const BlogInsights = () => {
       if (line.trim().startsWith('```')) {
         if (!inCodeBlock) {
           inCodeBlock = true;
-          codeLanguage = line.trim().substring(3);
+          codeLanguage = line.trim().substring(3) || 'text';
           codeContent = [];
         } else {
+          const rawCode = codeContent.join('\n');
+          const blockIdx = i;
           elements.push(
-            <pre key={`code-${i}`} className="my-4 p-4 bg-slate-900 dark:bg-black rounded-lg overflow-x-auto">
-              <code className={`text-sm font-mono text-green-400 language-${codeLanguage}`}>
-                {codeContent.join('\n')}
-              </code>
-            </pre>
+            <div key={`code-block-${blockIdx}`} className="my-5 rounded-xl overflow-hidden border border-slate-700/60 bg-slate-950 shadow-md">
+              <div className="bg-slate-900/90 px-4 py-2 flex items-center justify-between text-xs text-slate-300 font-mono border-b border-slate-800">
+                <span className="uppercase tracking-wider font-semibold text-slate-400">{codeLanguage}</span>
+                <button
+                  onClick={() => copyCode(rawCode, blockIdx)}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-300 transition-colors"
+                  title="Copier le code"
+                >
+                  {copiedCodeIndex === blockIdx ? (
+                    <>
+                      <Check className="w-3.5 h-3.5 text-emerald-400" />
+                      <span className="text-emerald-400">Copié !</span>
+                    </>
+                  ) : (
+                    <>
+                      <Copy className="w-3.5 h-3.5" />
+                      <span>Copier</span>
+                    </>
+                  )}
+                </button>
+              </div>
+              <pre className="p-4 overflow-x-auto text-xs sm:text-sm font-mono text-emerald-300 leading-relaxed">
+                <code>{rawCode}</code>
+              </pre>
+            </div>
           );
           inCodeBlock = false;
           codeContent = [];
@@ -538,30 +619,40 @@ const BlogInsights = () => {
       }
 
       if (line.startsWith('# ')) {
-        elements.push(<h1 key={i} className="text-2xl md:text-3xl font-bold text-black dark:text-white mt-8 mb-4">{line.substring(2)}</h1>);
+        elements.push(<h1 key={i} className="text-2xl md:text-3xl font-bold text-slate-900 dark:text-white mt-8 mb-4">{line.substring(2)}</h1>);
       } else if (line.startsWith('## ')) {
-        elements.push(<h2 key={i} className="text-xl md:text-2xl font-bold text-black dark:text-white mt-6 mb-3">{line.substring(3)}</h2>);
+        elements.push(<h2 key={i} className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mt-8 mb-3 border-b border-slate-200 dark:border-border-dark pb-2">{line.substring(3)}</h2>);
       } else if (line.startsWith('### ')) {
-        elements.push(<h3 key={i} className="text-lg md:text-xl font-semibold text-black dark:text-white mt-5 mb-2">{line.substring(4)}</h3>);
-      } else if (line.startsWith('- ')) {
-        elements.push(<li key={i} className="text-slate-700 dark:text-gray-300 ml-6 mb-2 list-disc">{line.substring(2)}</li>);
+        elements.push(<h3 key={i} className="text-lg md:text-xl font-semibold text-slate-900 dark:text-white mt-6 mb-2">{line.substring(4)}</h3>);
+      } else if (line.startsWith('> ')) {
+        elements.push(
+          <blockquote key={i} className="my-4 border-l-4 border-blue-500 pl-4 py-2 italic text-slate-700 dark:text-slate-300 bg-slate-50 dark:bg-button-bg-dark/40 rounded-r">
+            {line.substring(2)}
+          </blockquote>
+        );
+      } else if (line.startsWith('- ') || line.startsWith('* ')) {
+        elements.push(<li key={i} className="text-slate-700 dark:text-gray-300 ml-6 mb-2 list-disc text-sm sm:text-base leading-relaxed">{line.substring(2)}</li>);
+      } else if (/^\d+\.\s/.test(line)) {
+        elements.push(<li key={i} className="text-slate-700 dark:text-gray-300 ml-6 mb-2 list-decimal text-sm sm:text-base leading-relaxed">{line.replace(/^\d+\.\s/, '')}</li>);
+      } else if (line.trim() === '---') {
+        elements.push(<hr key={i} className="my-6 border-slate-200 dark:border-border-dark" />);
       } else if (line.trim() === '') {
         elements.push(<div key={i} className="h-3"></div>);
       } else if (line.trim() !== '') {
         const parts = line.split(/(\*\*.*?\*\*)/g);
         if (parts.length > 1) {
           elements.push(
-            <p key={i} className="text-slate-700 dark:text-gray-300 mb-3 leading-relaxed">
+            <p key={i} className="text-slate-700 dark:text-gray-300 mb-3 text-sm sm:text-base leading-relaxed">
               {parts.map((part, idx) => {
                 if (part.startsWith('**') && part.endsWith('**')) {
-                  return <strong key={idx} className="font-bold text-black dark:text-white">{part.slice(2, -2)}</strong>;
+                  return <strong key={idx} className="font-semibold text-slate-900 dark:text-white">{part.slice(2, -2)}</strong>;
                 }
                 return part;
               })}
             </p>
           );
         } else {
-          elements.push(<p key={i} className="text-slate-700 dark:text-gray-300 mb-3 leading-relaxed">{line}</p>);
+          elements.push(<p key={i} className="text-slate-700 dark:text-gray-300 mb-3 text-sm sm:text-base leading-relaxed">{line}</p>);
         }
       }
     });
@@ -572,189 +663,250 @@ const BlogInsights = () => {
   return (
     <AnimatePresence mode="wait">
       <motion.div
-        initial={{ opacity: 0, scale: 0.95 }}
+        initial={{ opacity: 0, scale: 0.98 }}
         animate={{ opacity: 1, scale: 1 }}
-        exit={{ opacity: 0, scale: 0.95 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        exit={{ opacity: 0, scale: 0.98 }}
+        transition={{ duration: 0.4, ease: "easeInOut" }}
         className="border-b-border-light dark:border-b-border-dark border-b-[1px]"
       >
         <div className="max-w-3xl mx-auto h-min p-4 md:p-[30px_48px_40px] md:border-l-[1px] md:border-r-[1px] md:border-dashed md:border-l-border-light md:border-r-border-light dark:md:border-l-border-dark dark:md:border-r-border-dark">
           
           {!selectedPost ? (
             <>
-              <div className="mb-8">
-                <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6 }}
-                  className="inline-block mb-3"
-                >
-                  <span className="px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 rounded-full">
-                    Blog & Insights
-                  </span>
-                </motion.div>
+              {/* Header de la section adapté au profil informatique */}
+              <div className="mb-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1 text-xs font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/40 rounded-full mb-3 border border-blue-200/50 dark:border-blue-900/50">
+                  <BookOpen className="w-3.5 h-3.5" />
+                  <span>Blog & Tech Insights</span>
+                </div>
                 
-                <h1 className="text-black dark:text-white text-xl sm:text-3xl md:text-4xl font-semibold leading-tight max-w-md mt-4 mb-3">
-                  Automatisation, Robotique & Tech
+                <h1 className="text-black dark:text-white text-xl sm:text-3xl md:text-4xl font-semibold leading-tight max-w-lg mt-1 mb-3">
+                  Cloud, DevOps, IA & Ingénierie Logicielle
                 </h1>
                 
-                <p className="text-slate-600 dark:text-gray-400 text-sm sm:text-base max-w-md">
-                  Retours d'expérience, tutoriels techniques et réflexions.
+                <p className="text-slate-600 dark:text-gray-dark text-sm sm:text-base max-w-xl leading-relaxed">
+                  Analyses techniques approfondies, architectures résilientes, automatisation par les agents IA et retours d'expérience concrets.
                 </p>
               </div>
 
-              <div className="space-y-4 my-7">
-                {blogPosts.map((post, index) => {
-                  const Icon = post.icon;
-                  
-                  return (
-                    <motion.article
-                      key={post.id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.5, delay: index * 0.1 }}
-                      onHoverStart={() => setHoveredId(post.id)}
-                      onHoverEnd={() => setHoveredId(null)}
-                      onClick={() => setSelectedPost(post)}
-                      className="group relative overflow-hidden rounded-xl border border-border-light dark:border-border-dark bg-white dark:bg-bg-dark transition-all duration-300 hover:shadow-lg hover:shadow-blue-500/10 cursor-pointer"
+              {/* Barre de recherche & Filtres par catégorie */}
+              <div className="space-y-3 mb-6">
+                <div className="relative">
+                  <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Rechercher un article, une techno (ex: Claude, Kubernetes, Kafka, VR, Docker...)"
+                    className="w-full pl-10 pr-4 py-2.5 text-xs sm:text-sm rounded-lg border border-slate-300 dark:border-border-dark bg-white dark:bg-bg-dark text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-blue-500"
+                  />
+                  {searchQuery && (
+                    <button
+                      onClick={() => setSearchQuery("")}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-400 hover:text-slate-600"
                     >
-                      <div className={`absolute inset-0 bg-gradient-to-r ${post.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`} />
-                      
-                      {post.image && (
-                        <div className="w-full h-48 overflow-hidden">
-                          <img 
-                            src={post.image} 
-                            alt={post.title}
-                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                          />
-                        </div>
-                      )}
-                      
-                      <div className="relative z-10 p-6">
-                        <div className="flex items-start justify-between gap-4">
-                          <div className="flex-1 min-w-0">
-                            <div className="flex items-center gap-3 mb-3">
-                              <div className={`p-2 rounded-lg bg-gradient-to-r ${post.gradient} bg-opacity-10`}>
-                                <Icon className="w-5 h-5 text-slate-700 dark:text-slate-300" />
-                              </div>
-                              <span className="text-xs font-medium text-slate-500 dark:text-gray-500 uppercase tracking-wide">
-                                {post.category}
-                              </span>
-                            </div>
-                            
-                            <h3 className="text-lg font-bold text-black dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
-                              {post.title}
-                            </h3>
-                            
-                            <p className="text-sm text-slate-600 dark:text-gray-400 mb-4 line-clamp-2">
-                              {post.excerpt}
-                            </p>
-                            
-                            <div className="flex flex-wrap gap-2 mb-4">
-                              {post.tags.slice(0, 4).map((tag, i) => (
-                                <span key={i} className="px-2 py-1 text-xs font-medium text-slate-600 dark:text-gray-400 bg-slate-100 dark:bg-slate-800 rounded">
-                                  {tag}
-                                </span>
-                              ))}
-                            </div>
-                            
-                            <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-500">
-                              <div className="flex items-center gap-1">
-                                <Calendar className="w-3 h-3" />
-                                <span>{post.date}</span>
-                              </div>
-                              <div className="flex items-center gap-1">
-                                <Clock className="w-3 h-3" />
-                                <span>{post.readTime}</span>
-                              </div>
-                            </div>
-                          </div>
-                          
-                          <motion.div
-                            animate={{ x: hoveredId === post.id ? 5 : 0 }}
-                            transition={{ duration: 0.2 }}
-                            className="flex-shrink-0"
-                          >
-                            <ArrowRight className="w-5 h-5 text-slate-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
-                          </motion.div>
-                        </div>
-                      </div>
-                    </motion.article>
-                  );
-                })}
+                      Effacer
+                    </button>
+                  )}
+                </div>
+
+                {/* Filtres par catégories */}
+                <div className="flex flex-wrap gap-2 pt-1">
+                  {categories.map((cat) => (
+                    <button
+                      key={cat}
+                      onClick={() => setSelectedCategory(cat)}
+                      className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
+                        selectedCategory === cat
+                          ? "bg-slate-900 text-white dark:bg-white dark:text-black shadow-sm"
+                          : "bg-slate-100 dark:bg-button-bg-dark text-slate-600 dark:text-gray-dark hover:bg-slate-200 dark:hover:bg-button-hover-dark"
+                      }`}
+                    >
+                      {cat}
+                    </button>
+                  ))}
+                </div>
               </div>
+
+              {/* Liste des articles */}
+              {filteredPosts.length === 0 ? (
+                <div className="py-12 text-center border border-dashed border-slate-300 dark:border-border-dark rounded-xl my-6">
+                  <p className="text-slate-500 dark:text-gray-dark text-sm">
+                    Aucun article ne correspond à votre recherche "{searchQuery}".
+                  </p>
+                  <button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setSelectedCategory("Tous");
+                    }}
+                    className="mt-3 text-xs text-blue-600 dark:text-blue-400 underline font-medium"
+                  >
+                    Réinitialiser les filtres
+                  </button>
+                </div>
+              ) : (
+                <div className="space-y-4 my-6">
+                  {filteredPosts.map((post, index) => {
+                    const Icon = post.icon;
+                    
+                    return (
+                      <motion.article
+                        key={post.id}
+                        initial={{ opacity: 0, y: 15 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.4, delay: index * 0.06 }}
+                        onHoverStart={() => setHoveredId(post.id)}
+                        onHoverEnd={() => setHoveredId(null)}
+                        onClick={() => setSelectedPost(post)}
+                        className="group relative overflow-hidden rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark transition-all duration-200 hover:border-slate-400 dark:hover:border-slate-500 hover:shadow-md cursor-pointer"
+                      >
+                        {post.image && (
+                          <div className="w-full h-44 overflow-hidden bg-slate-100 dark:bg-slate-900">
+                            <img 
+                              src={post.image} 
+                              alt={post.title}
+                              className="w-full h-full object-cover group-hover:scale-102 transition-transform duration-300"
+                            />
+                          </div>
+                        )}
+                        
+                        <div className="relative z-10 p-5 sm:p-6">
+                          <div className="flex items-start justify-between gap-4">
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2.5 mb-2.5">
+                                <div className="p-1.5 rounded-md bg-slate-100 dark:bg-button-bg-dark border border-slate-200/60 dark:border-border-dark">
+                                  <Icon className="w-4 h-4 text-slate-700 dark:text-slate-300" />
+                                </div>
+                                <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wide">
+                                  {post.category}
+                                </span>
+                              </div>
+                              
+                              <h3 className="text-base sm:text-lg font-bold text-black dark:text-white mb-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+                                {post.title}
+                              </h3>
+                              
+                              <p className="text-xs sm:text-sm text-slate-600 dark:text-gray-dark mb-3.5 line-clamp-2 leading-relaxed">
+                                {post.excerpt}
+                              </p>
+                              
+                              <div className="flex flex-wrap gap-1.5 mb-3.5">
+                                {post.tags.slice(0, 5).map((tag, i) => (
+                                  <span key={i} className="px-2 py-0.5 text-[11px] font-medium text-slate-600 dark:text-gray-dark bg-slate-100 dark:bg-button-bg-dark/80 rounded">
+                                    #{tag}
+                                  </span>
+                                ))}
+                              </div>
+                              
+                              <div className="flex items-center gap-4 text-xs text-slate-500 dark:text-gray-dark pt-2 border-t border-slate-100 dark:border-border-dark/60">
+                                <div className="flex items-center gap-1.5">
+                                  <Calendar className="w-3.5 h-3.5" />
+                                  <span>{post.date}</span>
+                                </div>
+                                <div className="flex items-center gap-1.5">
+                                  <Clock className="w-3.5 h-3.5" />
+                                  <span>{post.readTime}</span>
+                                </div>
+                              </div>
+                            </div>
+                            
+                            <motion.div
+                              animate={{ x: hoveredId === post.id ? 4 : 0 }}
+                              transition={{ duration: 0.2 }}
+                              className="flex-shrink-0 pt-1"
+                            >
+                              <ArrowRight className="w-5 h-5 text-slate-400 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors" />
+                            </motion.div>
+                          </div>
+                        </div>
+                      </motion.article>
+                    );
+                  })}
+                </div>
+              )}
             </>
           ) : (
+            /* Vue lecteur détaillée de l'article */
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -20 }}
-              transition={{ duration: 0.4 }}
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -15 }}
+              transition={{ duration: 0.3 }}
               className="relative"
             >
               <button
                 onClick={() => setSelectedPost(null)}
-                className="flex items-center gap-2 text-slate-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-6 group"
+                className="inline-flex items-center gap-2 text-slate-600 dark:text-gray-dark hover:text-blue-600 dark:hover:text-blue-400 transition-colors mb-6 group text-xs sm:text-sm font-medium"
               >
                 <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
-                <span className="text-sm font-medium">Retour aux articles</span>
+                <span>Retour aux articles</span>
               </button>
 
               {selectedPost.image && (
-                <div className="w-full overflow-hidden rounded-lg shadow-lg mb-6">
+                <div className="w-full overflow-hidden rounded-xl shadow-sm mb-6 max-h-[320px] bg-slate-100 dark:bg-slate-900">
                   <img 
                     src={selectedPost.image} 
                     alt={selectedPost.title}
-                    className="w-full object-cover max-h-[300px]"
+                    className="w-full object-cover max-h-[320px]"
                   />
                 </div>
               )}
 
-              <div className="mb-8">
-                <div className="flex items-center gap-3 mb-4">
-                  {React.createElement(selectedPost.icon, { className: "w-6 h-6 text-slate-700 dark:text-slate-300" })}
-                  <span className="text-sm font-medium text-slate-500 dark:text-gray-500 uppercase tracking-wide">
+              <div className="mb-6">
+                <div className="flex items-center gap-2.5 mb-3">
+                  <div className="p-1.5 rounded-md bg-slate-100 dark:bg-button-bg-dark border border-slate-200/60 dark:border-border-dark">
+                    {React.createElement(selectedPost.icon, { className: "w-4 h-4 text-slate-700 dark:text-slate-300" })}
+                  </div>
+                  <span className="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wide">
                     {selectedPost.category}
                   </span>
                 </div>
 
-                <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black dark:text-white mb-4 leading-tight">
+                <h1 className="text-xl sm:text-2xl md:text-3xl font-bold text-black dark:text-white mb-3 leading-tight">
                   {selectedPost.title}
                 </h1>
 
-                <div className="flex items-center gap-4 text-sm text-slate-500 dark:text-gray-500 mb-6">
-                  <div className="flex items-center gap-2">
+                <div className="flex items-center gap-4 text-xs sm:text-sm text-slate-500 dark:text-gray-dark mb-4">
+                  <div className="flex items-center gap-1.5">
                     <Calendar className="w-4 h-4" />
                     <span>{selectedPost.date}</span>
                   </div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center gap-1.5">
                     <Clock className="w-4 h-4" />
-                    <span>{selectedPost.readTime}</span>
+                    <span>Temps de lecture : {selectedPost.readTime}</span>
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5 pt-2 border-t border-slate-200 dark:border-border-dark">
                   {selectedPost.tags.map((tag, i) => (
-                    <span key={i} className="px-3 py-1 text-sm font-medium text-slate-600 dark:text-gray-400 bg-slate-100 dark:bg-slate-800 rounded-full">
-                      {tag}
+                    <span key={i} className="px-2.5 py-1 text-xs font-medium text-slate-600 dark:text-gray-dark bg-slate-100 dark:bg-button-bg-dark rounded-md">
+                      #{tag}
                     </span>
                   ))}
                 </div>
               </div>
 
-              <div className="prose prose-slate dark:prose-invert max-w-none">
-                <div className={`w-full h-1 bg-gradient-to-r ${selectedPost.gradient} rounded-full mb-8`} />
+              {/* Contenu formaté de l'article */}
+              <div className="mt-8 border-t border-slate-200 dark:border-border-dark pt-6">
                 {formatContent(selectedPost.content)}
               </div>
 
-              <div className="mt-12 pt-8 border-t border-border-light dark:border-border-dark">
+              {/* Bouton de retour en bas d'article */}
+              <div className="mt-12 pt-6 border-t border-slate-200 dark:border-border-dark flex items-center justify-between">
                 <button
                   onClick={() => setSelectedPost(null)}
-                  className="inline-flex items-center gap-2 px-6 py-3 text-sm font-medium text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/30 rounded-lg hover:bg-blue-100 dark:hover:bg-blue-950/50 transition-all duration-300"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 text-xs sm:text-sm font-medium text-white bg-slate-900 hover:bg-slate-800 dark:bg-white dark:text-black dark:hover:bg-slate-200 rounded-lg transition-colors"
                 >
                   <ArrowLeft className="w-4 h-4" />
-                  Retour aux articles
+                  <span>Retour aux articles</span>
                 </button>
+
+                <a
+                  href="/contact"
+                  className="text-xs sm:text-sm text-blue-600 dark:text-blue-400 hover:underline font-medium"
+                >
+                  Discuter de ce sujet avec Lorraine →
+                </a>
               </div>
             </motion.div>
           )}
