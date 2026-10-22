@@ -1,10 +1,249 @@
 [
   {
+    "id": "payflex-bnpl",
+    "title": "PayFlex — Infrastructure de Paiement Fractionné 4x (BNPL)",
+    "company": "FinTech • Freelance & R&D",
+    "year": "2026",
+    "date": "2026 – Présent",
+    "lieu": "France",
+    "type": "Application FinTech / Système de Paiement Distribué",
+    "lien": "",
+    "images": [
+      "/images/payflex.jpg"
+    ],
+    "description": "Plateforme de paiement fractionné Buy Now, Pay Later (4x) de niveau entreprise, combinant un cœur transactionnel robuste en Java / Spring Boot 3 et une interface de pilotage moderne en Next.js 15 & TypeScript.\n\nDans les systèmes de paiement BNPL (tels que Klarna ou Alma), la gestion des flux financiers requiert zéro approximation mathématique, une tolérance rigoureuse aux pannes bancaires et une traçabilité d'audit stricte.\n\nPayFlex résout ces problématiques critiques en fournissant un moteur transactionnel résilient et une console de supervision institutionnelle :\n• Algorithme de fractionnement 4x garantissant l'équilibre comptable au centime près\n• Ordonnanceur automatique de prélèvements à échéance (J+0, J+30, J+60, J+90)\n• Machine d'état de relance des impayés avec seuil de bascule en défaut de paiement\n• Passerelle bancaire simulée avec modes déterministes et gestion des motifs de rejets\n• Console de supervision B2B « Time Machine » inspirée des standards Stripe et Qonto\n• API sécurisée (Spring Security, RFC 7807) et observable (Actuator & Prometheus)\n\nNB: Architecture monorepo découplée (Backend API REST Spring Boot 3 + Frontend Next.js 15 App Router) conteneurisée avec Docker Compose.",
+    "results": [
+      {
+        "metric": "Équilibre comptable",
+        "value": "0,00 € d'écart",
+        "description": "Précision absolue des centimes (25,02 € + 3x 24,99 € = 99,99 €)"
+      },
+      {
+        "metric": "Cycle de prélèvements",
+        "value": "J+0 à J+90",
+        "description": "Jobs planifiés @Scheduled avec relances automatiques à J+3"
+      },
+      {
+        "metric": "Gestion du risque",
+        "value": "Anti-fraude & Défaut",
+        "description": "Bascule automatique en DEFAULTED après 3 relances échouées"
+      },
+      {
+        "metric": "Couverture de test",
+        "value": "Tests critiques",
+        "description": "JUnit 5, AssertJ, horloge figée et tests d'intégration SpringBootTest"
+      }
+    ],
+    "features": [
+      {
+        "value": "Moteur de fractionnement 4x avec imputation automatique du résidu de centimes à J+0",
+        "icon": "RiMoneyDollarCircleLine",
+        "color": "#10B981"
+      },
+      {
+        "value": "Ordonnanceur nocturne (@Scheduled) interrogeant les échéances avec JOIN FETCH optimisé",
+        "icon": "RiTimeLine",
+        "color": "#3B82F6"
+      },
+      {
+        "value": "Automate de résilience : relance à J+3 en cas de rejet et bascule en DEFAULTED si retryCount > 3",
+        "icon": "RiShieldFlashLine",
+        "color": "#EF4444"
+      },
+      {
+        "value": "Contrôle de concurrence optimiste (@Version Long version et UUID métier immuable)",
+        "icon": "RiLock2Line",
+        "color": "#8B5CF6"
+      },
+      {
+        "value": "Simulateur de passerelle bancaire (90% de succès, motifs de rejets réalistes, modes forcés)",
+        "icon": "RiBankCardLine",
+        "color": "#F59E0B"
+      },
+      {
+        "value": "Dashboard B2B « Time Machine » en Next.js 15 : simulation temporelle et jauges en temps réel",
+        "icon": "RiDashboard3Line",
+        "color": "#06B6D4"
+      },
+      {
+        "value": "Observabilité & Supervision de production (Spring Boot Actuator, métriques Prometheus)",
+        "icon": "RiPulseLine",
+        "color": "#6366F1"
+      }
+    ],
+    "technologies": [
+      {
+        "value": "Java 17+ & Spring Boot 3",
+        "icon": "SiSpringboot",
+        "color": "#6DB33F",
+        "description": "Cœur transactionnel, Spring Data JPA, Hibernate, API REST et jobs planifiés"
+      },
+      {
+        "value": "Next.js 15 & TypeScript",
+        "icon": "SiNextdotjs",
+        "color": "#000000",
+        "description": "Dashboard B2B réactif, App Router, typage strict et CSS Modules"
+      },
+      {
+        "value": "PostgreSQL & H2 Database",
+        "icon": "SiPostgresql",
+        "color": "#4169E1",
+        "description": "Persistance transactionnelle avec intégrité référentielle et locking optimiste"
+      },
+      {
+        "value": "Docker Compose",
+        "icon": "SiDocker",
+        "color": "#2496ED",
+        "description": "Conteneurisation unifiée du monorepo (Backend + Frontend + BDD)"
+      },
+      {
+        "value": "JUnit 5, AssertJ & Mockito",
+        "icon": "SiJest",
+        "color": "#C21325",
+        "description": "Suites de tests unitaires d'invariance et tests d'intégration (@SpringBootTest)"
+      },
+      {
+        "value": "Spring Security & Prometheus",
+        "icon": "SiPrometheus",
+        "color": "#E6522C",
+        "description": "Sécurisation des endpoints, gestion des erreurs RFC 7807 et métriques"
+      }
+    ],
+    "challenges": [
+      {
+        "title": "Algorithme d'ajustement des centimes sans perte comptable",
+        "problem": "Diviser un montant comme 99,99 € par 4 donne 24,9975 €. Les arrondis naïfs génèrent des écarts cumulatifs (perte ou surplus financier).",
+        "solution": "Division entière à 2 décimales (RoundingMode.DOWN à 24,99 €), calcul du résidu (0,03 €) et imputation automatique sur la première échéance à J+0 (25,02 €).",
+        "guarantee": "25,02 € + 3 × 24,99 € = 99,99 € exacts. Traité dans BNPLServiceImpl.java."
+      },
+      {
+        "title": "Concurrence et intégrité financière (Optimistic Locking)",
+        "problem": "Risque de doubles débits ou d'écritures concurrentes lors de paiements ou de relances simultanées.",
+        "solution": "Mise en place d'un @Version Long version et d'un UUID métier immuable sur BaseEntity.java pour prévenir toute corruption de données.",
+        "guarantee": "Détection immédiate des conflits de concurrence (OptimisticLockException) et rollback automatique."
+      },
+      {
+        "title": "Ordonnanceur nocturne & Automate de gestion des rejets (J+3)",
+        "problem": "Gestion résiliente des débits différés et traitement des échecs bancaires temporaires.",
+        "solution": "Job planifié via @Scheduled dans InstallmentSchedulerJob.java avec JOIN FETCH optimisé. Transition PENDING ➔ IN_PROGRESS ➔ COMPLETED. En cas de rejet, passage à FAILED, retryCount++ et reprogrammation automatique à J+3 jours. Si retryCount > 3, passage en DEFAULTED.",
+        "guarantee": "Suivi exhaustif du cycle de vie de chaque échéance sans intervention manuelle."
+      },
+      {
+        "title": "Passerelle bancaire simulée & Mode déterministe",
+        "problem": "Nécessité de tester fidèlement les cas de succès, rejets et pannes réseau en environnement de test.",
+        "solution": "PaymentGatewaySimulator.java simule les autorisations/débits avec un taux de succès paramétrable (90%), des motifs réalistes (INSUFFICIENT_FUNDS, EXPIRED_CARD) et l'injection de modes forcés.",
+        "guarantee": "Exécution reproductible et déterministe des tests de bout en bout."
+      },
+      {
+        "title": "Interface B2B « Time Machine » en Next.js 15",
+        "problem": "Difficulté de visualiser et tester l'écoulement du temps sur des échéances à J+30, J+60 et J+90.",
+        "solution": "Console de pilotage avec typage TypeScript strict permettant d'avancer virtuellement le temps (+3j, +30j, etc.), d'observer les jauges d'avancement et de basculer en direct les modes passerelle.",
+        "guarantee": "Démonstrabilité immédiate de la chaîne de valeur transactionnelle."
+      },
+      {
+        "title": "Stratégie de Test & Assurance Qualité Logicielle",
+        "problem": "Validation formelle de l'invariance mathématique et des cycles d'échéances sans dépendre du temps réel.",
+        "solution": "Tests unitaires (JUnit 5 & AssertJ) dans BNPLServiceTest.java avec horloge figée (Clock.fixed()) sur des paniers critiques (100,00 €, 99,99 €, 100,01 €). Tests d'intégration (@SpringBootTest) validant le cycle nominal, la relance à J+3 et la mise en défaut.",
+        "guarantee": "Zéro régression sur les calculs financiers et les transitions d'états."
+      }
+    ]
+  },
+  {
+    "id": "lorjob",
+    "title": "LorJob — Plateforme de Suivi de Candidatures & Pilotage KPI",
+    "company": "Projet Fullstack Freelance",
+    "year": "2026",
+    "date": "2026 – Présent",
+    "lieu": "France",
+    "type": "Plateforme SaaS / ATS Personnel",
+    "lien": "",
+    "images": [
+      "/images/lorjob.jpg"
+    ],
+    "description": "Plateforme fullstack moderne en monorepo dédiée au suivi structuré des candidatures et à l'optimisation des démarches de recrutement professionnel.\n\nConçue pour apporter une visibilité en temps réel sur le pipeline d'opportunités, LorJob intègre un tableau de bord analytique complet, un moteur d'automatisation des relances et une sécurité moderne sans mot de passe.\n\nPoints clés de l'application :\n• Architecture monorepo haute vélocité propulsée par le runtime Bun et Next.js 15\n• API REST ultra-légère et performante développée avec Hono\n• Modélisation et persistance des données avec PostgreSQL et Prisma ORM\n• Tableau de bord interactif avec calcul dynamique des KPI (taux de conversion, délais moyens, statut des entretiens)\n• Moteur de relances automatisées par e-mail selon les étapes et dates limites\n• Système d'authentification sans mot de passe sécurisé par code OTP par e-mail\n\nNB: Solution taillée pour la rapidité d'exécution, la clarté du pilotage et l'expérience utilisateur fluide.",
+    "results": [
+      {
+        "metric": "Performance Runtime",
+        "value": "Bun + Hono",
+        "description": "Temps de réponse minimal et exécution ultra-rapide"
+      },
+      {
+        "metric": "Automatisation",
+        "value": "Relances & OTP",
+        "description": "Envoi d'e-mails programmés et authentification OTP"
+      },
+      {
+        "metric": "Visibilité",
+        "value": "Dashboard KPI",
+        "description": "Métriques de conversion et suivi précis des étapes"
+      }
+    ],
+    "features": [
+      {
+        "value": "Tableau de bord de KPI avec indicateurs clés du pipeline de candidatures",
+        "icon": "RiDashboardLine",
+        "color": "#3B82F6"
+      },
+      {
+        "value": "Relances automatisées par e-mail basées sur des déclencheurs temporels",
+        "icon": "RiMailSendLine",
+        "color": "#10B981"
+      },
+      {
+        "value": "Authentification sécurisée par mot de passe à usage unique (code OTP)",
+        "icon": "RiShieldKeyholeLine",
+        "color": "#8B5CF6"
+      },
+      {
+        "value": "Gestion des étapes : candidatures envoyées, entretiens, offres et relances",
+        "icon": "RiListCheck2",
+        "color": "#F59E0B"
+      },
+      {
+        "value": "API REST modulaire sous Hono avec typage de bout en bout TypeScript",
+        "icon": "RiCodeSSlashLine",
+        "color": "#06B6D4"
+      }
+    ],
+    "technologies": [
+      {
+        "value": "Bun",
+        "icon": "SiBun",
+        "color": "#FBF0DF",
+        "description": "Runtime JavaScript tout-en-un ultra-rapide et gestionnaire de paquets"
+      },
+      {
+        "value": "Next.js 15 & React",
+        "icon": "SiNextdotjs",
+        "color": "#000000",
+        "description": "Frontend moderne, App Router et composants réactifs"
+      },
+      {
+        "value": "Hono",
+        "icon": "SiFastapi",
+        "color": "#E36002",
+        "description": "Framework web léger, rapide et standardisé pour l'API REST"
+      },
+      {
+        "value": "PostgreSQL & Prisma",
+        "icon": "SiPrisma",
+        "color": "#2D3748",
+        "description": "Schéma de données typé, migrations et requêtes optimisées"
+      },
+      {
+        "value": "TypeScript",
+        "icon": "SiTypescript",
+        "color": "#3178C6",
+        "description": "Typage strict de bout en bout entre API et interface"
+      }
+    ]
+  },
+  {
     "id": "chatbot-ia-sg",
     "title": "Chatbot IA d'Entreprise",
     "company": "Société Générale",
     "year": "2024",
-    "date": "Mai 2024 - Août 2024",
+    "date": "Mai 2024 – Août 2024",
     "lieu": "Fontenay-sous-Bois, France",
     "type": "Projet Professionnel",
     "lien": "",
@@ -89,8 +328,8 @@
     "id": "mybigdata-sg",
     "title": "Plateforme MyBigData (Données Massives)",
     "company": "Société Générale",
-    "year": "2022 - 2024",
-    "date": "Sept 2022 - Août 2024",
+    "year": "2022 – 2024",
+    "date": "Sept 2022 – Août 2024",
     "lieu": "Fontenay-sous-Bois, France",
     "type": "Projet Professionnel",
     "lien": "",
@@ -159,7 +398,7 @@
       },
       {
         "value": "SonarQube",
-        "icon": "SiSonarqube",
+        "icon": "SiSonar",
         "color": "#4E9BCD",
         "description": "Analyse statique et maintien de la qualité logicielle"
       },
@@ -176,7 +415,7 @@
     "title": "Déploiement Cloud & Orchestration Kubernetes",
     "company": "Projet Cloud & DevOps Personnel",
     "year": "2025",
-    "date": "Juil 2025 - Août 2025",
+    "date": "Juil 2025 – Août 2025",
     "lieu": "Maurepas, France",
     "type": "Projet Cloud & DevOps",
     "lien": "",
@@ -184,7 +423,7 @@
       "/images/taskflow.jpg",
       "/images/corporation.jpg"
     ],
-    "description": "Conception, conteneurisation et déploiement d'une architecture multi-services distribuée sur le Cloud AWS avec Kubernetes.\n\nObjectif : Mettre en œuvre une infrastructure hautement disponible, résiliente et élastique respectant les bonnes pratiques Cloud.\n\nRéalisations :\n• Conteneurisation de chaque microservice avec Docker (images optimisées multi-stage)\n• Orchestration des conteneurs via des manifests Kubernetes (Deployments, Services, Ingress)\n• Déploiement des nœuds de calcul sur AWS EC2\n• Gestion de la persistance des données relationnelles avec AWS RDS\n• Stockage d'objets sécurisé et haute durabilité sur AWS S3\n• Mise en place des principes d'architecture distribuée et de haute disponibilité\n\nNB: Projet illustrant la maîtrise concrète du cycle de déploiement et d'orchestration Cloud AWS.",
+    "description": "Conception, conteneurisation et déploiement d'une architecture multi-services distribuée sur le Cloud AWS avec Kubernetes.\n\nObjectif : Mettre en œuvre une infrastructure hautement disponible, résiliente et élastique respectant les bonnes pratiques Cloud.\n\nRéalisations :\n• Conteneurisation de chaque microservice avec Docker (images optimisées multi-stage)\n• Orchestration des conteneurs via des manifests Kubernetes (Deployments, Services, Ingress)\n• Déploiement sur AWS EC2 avec gestion de la persistance des données sur AWS RDS et du stockage d'objets sur AWS S3\n• Mise en place des principes d'architecture distribuée et de haute disponibilité\n• Projet réalisé pour consolider des compétences pratiques en cloud, conteneurisation et déploiement distribué.\n\nNB: Projet illustrant la maîtrise concrète du cycle de déploiement et d'orchestration Cloud AWS.",
     "results": [
       {
         "metric": "Disponibilité",
@@ -227,7 +466,7 @@
     "technologies": [
       {
         "value": "AWS (EC2, RDS, S3)",
-        "icon": "SiAmazonwebservices",
+        "icon": "RiAmazonLine",
         "color": "#FF9900",
         "description": "Infrastructure cloud public scalable et sécurisée"
       },
@@ -256,7 +495,7 @@
     "title": "Suivi de Visages par Drone (IA Embarquée)",
     "company": "Projet Personnel IA & Vision",
     "year": "2025",
-    "date": "Jan 2025 - Mars 2025",
+    "date": "Jan 2025 – Mars 2025",
     "lieu": "Maurepas, France",
     "type": "IA & Vision par Ordinateur",
     "lien": "",
@@ -264,7 +503,7 @@
       "/images/apex.jpg",
       "/images/mejestic.jpg"
     ],
-    "description": "Développement d'un système intelligent de pilotage automatique et manuel d'un drone avec suivi de personnes en temps réel par reconnaissance faciale.\n\nObjectif : Assurer le tracking fluide d'un visage à l'aide de la caméra embarquée et asservir la trajectoire du drone en temps réel.\n\nRéalisations :\n• Développement du système de pilotage manuel et automatique du drone\n• Traitement du flux vidéo en temps réel et capture média via la caméra embarquée\n• Intégration logiciel-matériel et algorithmes de vision par ordinateur pour la reconnaissance faciale\n• Calcul des correcteurs de trajectoire pour maintenir le sujet centré\n\nNB: Projet combinant traitement d'images temps réel, algorithmes d'IA et asservissement matériel.",
+    "description": "Développement d'un système intelligent de pilotage automatique et manuel d'un drone avec suivi de personnes en temps réel par reconnaissance faciale.\n\nObjectif : Assurer le tracking fluide d'un visage à l'aide de la caméra embarquée et asservir la trajectoire du drone en temps réel.\n\nRéalisations :\n• Développement du système de pilotage manuel et automatique du drone\n• Implémentation de la capture photo et vidéo via la caméra embarquée\n• Traitement du flux vidéo en temps réel et intégration logiciel-matériel\n• Algorithmes de vision par ordinateur pour la reconnaissance faciale et correction dynamique de trajectoire\n\nNB: Projet personnel orienté IA embarquée, vision par ordinateur et intégration logiciel-matériel.",
     "results": [
       {
         "metric": "Flux vidéo",

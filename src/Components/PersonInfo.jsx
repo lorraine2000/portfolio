@@ -13,8 +13,10 @@ import {
   ExternalLink,
   Layers,
   Sparkles,
+  Heart,
   TrendingUp,
-  ShieldCheck
+  ShieldCheck,
+  Check
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -37,103 +39,151 @@ const PersonInfo = () => {
 
   const experiences = [
     {
-      id: "sg",
-      company: "Société Générale",
-      role: "Ingénieure d'Études / Développeuse Fullstack & Cloud",
-      period: "Septembre 2022 – Août 2024",
-      duration: "2 ans",
-      type: "Alternance d'Ingénieur",
-      location: "Fontenay-sous-Bois, France",
-      context: "Direction des Systèmes d'Information bancaire • Environnement de production critique",
-      highlight: "Traitement de volumes massifs et livraison d'un Chatbot IA interne",
+      id: "freelance",
+      company: "Indépendante",
+      role: "Développeuse Fullstack Freelance",
+      period: "2026 – Présent",
+      duration: "En cours",
+      type: "Freelance",
+      location: "France",
+      context: "Conception de solutions FinTech transactionnelles, architectures monorepo et applications SaaS",
+      highlight: "PayFlex (BNPL 4x à précision centime absolue) & LorJob (Suivi de candidatures Bun/Hono)",
       projects: [
         {
-          name: "Plateforme MyBigData (Données Massives)",
-          details: "Développement et maintenance d'une application interne critique traitant plusieurs millions de lignes de données financières.",
+          name: "PayFlex — Plateforme FinTech de paiement en plusieurs fois (BNPL 4x)",
+          details: "Architecture fullstack monorepo (Java / Spring Boot 3, Next.js 15, TypeScript, PostgreSQL) avec cœur transactionnel résilient.",
           bullets: [
-            "Conception de microservices backend Java / Spring Boot optimisés pour le traitement à haute fréquence.",
-            "Développement d'interfaces utilisateur modernes et réactives en React / TypeScript d'après des maquettes Figma.",
-            "Requêtes SQL avancées et optimisation des performances sur bases de données relationnelles (Oracle, PostgreSQL).",
-            "Mise en place de tests unitaires et d'intégration systématiques (JUnit, Mockito, Jest) et Quality Gate SonarQube."
+            "Moteur de fractionnement en 4x : calcul exact des centimes (RoundingMode.DOWN à 24,99 €, résidu 0,03 € imputé sur J+0 à 25,02 € -> 25,02 € + 3x 24,99 € = 99,99 € exacts).",
+            "Ordonnanceur automatique de prélèvements (@Scheduled) aux échéances J+0, J+30, J+60, J+90 avec JOIN FETCH optimisé.",
+            "Concurrence et intégrité financière par locking optimiste (@Version) et UUID métier immuable sur BaseEntity.",
+            "Automate de résilience bancaire et simulateur de passerelle (succès 90%) : relances automatiques à J+3 et détection des défauts (bascule en DEFAULTED si retryCount > 3).",
+            "Console B2B Next.js 15 « Time Machine » pour tester les décalages temporels et suivre les indicateurs financiers en direct.",
+            "API sécurisée et observable (Spring Security, erreurs RFC 7807, Spring Actuator, métriques Prometheus) conteneurisée avec Docker Compose.",
+            "Stratégie de test complète : tests unitaires JUnit 5 & AssertJ avec horloge figée (Clock.fixed()) et tests d'intégration (@SpringBootTest)."
+          ]
+        },
+        {
+          name: "LorJob — Plateforme de suivi de candidatures & pilotage KPI",
+          details: "Plateforme fullstack en monorepo propulsée par le runtime Bun et Next.js 15.",
+          bullets: [
+            "API REST légère et performante avec Hono et persistance PostgreSQL / Prisma ORM.",
+            "Tableau de bord de pilotage des KPI de recrutement (taux de conversion, délais moyens, statuts d'entretiens).",
+            "Moteur de relances automatisées par e-mail et système d'authentification sans mot de passe sécurisé par code OTP."
+          ]
+        }
+      ],
+      skills: [
+        "Java 17+",
+        "Spring Boot 3",
+        "Next.js 15",
+        "TypeScript",
+        "Bun",
+        "Hono",
+        "PostgreSQL",
+        "Prisma",
+        "Docker Compose",
+        "JUnit 5",
+        "Prometheus",
+        "Spring Security"
+      ]
+    },
+    {
+      id: "sg",
+      company: "Société Générale",
+      role: "Développeuse Fullstack",
+      period: "Septembre 2022 – Août 2024",
+      duration: "2 ans",
+      type: "Expérience Entreprise",
+      location: "Fontenay-sous-Bois, France",
+      context: "Direction des Systèmes d'Information bancaire • Environnement de production critique",
+      highlight: "Traitement de flux de données massifs et livraison de la V1 d'un Chatbot IA",
+      projects: [
+        {
+          name: "MyBigData — Analyse de données massives",
+          details: "Développement et maintenance de l'application interne critique MyBigData, dédiée à l'exploitation et l'analyse de plusieurs millions de lignes de données bancaires.",
+          bullets: [
+            "Développement de services backend Java / Spring Boot optimisés pour le traitement à haute charge.",
+            "Développement d'UI (TypeScript, React) selon les maquettes Figma, avec tests unitaires et d'intégration.",
+            "Requêtes SQL et interfaçage avec les bases de données relationnelles (PostgreSQL, Oracle).",
+            "Mise en place de tests rigoureux (JUnit, Mockito, Jest) et contrôle continu de la qualité du code avec SonarQube."
           ]
         },
         {
           name: "Chatbot IA d'Entreprise",
-          details: "Conception et livraison de la version 1 d'un assistant conversationnel intelligent en 2 mois.",
+          details: "Livraison en 2 mois de la version 1 d'un chatbot propulsé par l'IA pour les collaborateurs.",
           bullets: [
-            "Architecture backend Spring Boot et intégration de modèles de langage (LLM).",
-            "Double interface : UI utilisateur pour les collaborateurs et UI administrateur pour la gestion des connaissances et des logs.",
-            "Adoption par plus de 50 utilisateurs métiers internes avec documentation technique complète."
+            "Conception d'une double interface : UI utilisateur pour les requêtes et UI administrateur pour la gestion des connaissances et des logs.",
+            "Adoption réussie par plus de 50 utilisateurs internes avec documentation technique complète.",
+            "Suivi des projets en Agile Scrum et participation aux mises en production avec l’équipe de déploiement."
           ]
         }
       ],
       skills: [
-        "Java 17/21",
+        "Java",
         "Spring Boot",
         "React",
         "TypeScript",
-        "Docker",
-        "GitLab CI",
         "PostgreSQL / Oracle",
         "SonarQube",
+        "JUnit",
+        "Mockito",
+        "Jest",
+        "GitLab CI",
         "Agile Scrum"
       ]
     },
     {
-      id: "cloud-personal",
-      company: "Projets Cloud & Ingénierie Personnelle",
-      role: "Ingénieure Cloud & Architecte Logiciel (Lab & Réalisations)",
-      period: "2024 – Présent",
-      duration: "Continu",
-      type: "Projets & R&D",
-      location: "France",
-      context: "Conception d'architectures distribuées, observabilité et automatisation DevSecOps",
-      highlight: "Déploiements AWS, Kubernetes, Terraform et Kafka",
+      id: "personal-projects",
+      company: "Projets d'Ingénierie & R&D",
+      role: "Concepteur Logiciel & Cloud (Projets Personnels)",
+      period: "Janvier 2025 – Août 2025",
+      duration: "Projets R&D",
+      type: "Projets Personnels",
+      location: "Maurepas, France",
+      context: "Cloud public, orchestration de conteneurs, IA embarquée et vision par ordinateur",
+      highlight: "Déploiement AWS/K8s et Drone avec suivi facial en temps réel",
       projects: [
         {
-          name: "Déploiement Cloud AWS & Kubernetes (EKS)",
-          details: "Mise en place d'une infrastructure hautement disponible et sécurisée.",
+          name: "Virtualisation, Orchestration & Déploiement Cloud AWS (07/2025 – 08/2025)",
+          details: "Consolidation des compétences pratiques en cloud, conteneurisation et déploiement distribué.",
           bullets: [
-            "Conteneurisation multi-stage Docker pour des images ultra-légères.",
-            "Orchestration avec manifests Kubernetes (Deployments, Services, Ingress ALB, Secrets).",
-            "Provisionnement d'infrastructure as Code (IaC) avec Terraform sur AWS (EC2, RDS, S3).",
-            "Surveillance en continu et métriques avec Prometheus, Grafana et CloudWatch."
+            "Conteneurisation d’une application avec Docker puis orchestration avec Kubernetes en environnement virtualisé.",
+            "Déploiement sur AWS EC2, avec gestion de la base de données sur AWS RDS et du stockage d'objets sur AWS S3.",
+            "Mise en œuvre des principes d'architecture distribuée et de haute disponibilité."
           ]
         },
         {
-          name: "Architecture événementielle avec Apache Kafka",
-          details: "Système de communication asynchrone entre microservices distribués.",
+          name: "Application de Suivi de Visages par Drone (01/2025 – 03/2025)",
+          details: "Projet personnel orienté IA embarquée, vision par ordinateur et intégration logiciel-matériel.",
           bullets: [
-            "Implémentation du Transactional Outbox Pattern avec Spring Boot 3 et Kafka.",
-            "Tolérance aux pannes avec Resilience4j (Circuit Breakers, Retry, Fallbacks).",
-            "Tests d'intégration avec Testcontainers pour valider les brokers Kafka en local."
+            "Développement d’un système de pilotage manuel et automatique d’un drone via reconnaissance faciale.",
+            "Implémentation de la capture photo et vidéo en temps réel via la caméra embarquée (Python, OpenCV).",
+            "Calcul d'asservissement pour maintenir le cadrage du sujet en direct."
           ]
         }
       ],
       skills: [
-        "AWS (EC2, RDS, S3, EKS)",
-        "Kubernetes",
-        "Terraform",
-        "Apache Kafka",
+        "AWS (EC2, RDS, S3)",
         "Docker",
-        "GitHub Actions",
-        "Resilience4j",
-        "Spring Boot 3"
+        "Kubernetes",
+        "Python",
+        "OpenCV",
+        "Linux / Shell"
       ]
     }
   ];
 
   const education = [
     {
-      degree: "Diplôme d'Ingénieur du Numérique (Grade de Master)",
+      degree: "Ingénieur en Informatique : Spécialité Développement Logiciel",
       school: "ESIEA – École d'Ingénieurs du Monde Numérique",
-      period: "2021 – 2025",
+      period: "09/2021 – 01/2025",
       specialization: "Spécialité Développement Logiciel & Architecture des Systèmes",
-      location: "Paris / Ivry-sur-Seine",
+      location: "Ivry-sur-Seine, France",
       highlights: [
-        "Conception logicielle avancée, algorithmique, structures de données complexes et Clean Architecture.",
-        "Sécurité applicative, systèmes d'information distribués et génie logiciel.",
-        "Gestion de projets d'ingénierie en méthode Agile Scrum."
+        "Conception logicielle avancée, algorithmique, structures de données, POO et Clean Architecture.",
+        "Génie logiciel, bases de données, sécurité applicative et architectures distribuées.",
+        "Gestion de projets d'ingénierie logicielle en méthodologie Agile Scrum."
       ]
     }
   ];
@@ -143,23 +193,31 @@ const PersonInfo = () => {
       title: "AWS Certified Cloud Practitioner",
       issuer: "Amazon Web Services",
       status: "Certifiée",
-      badge: "Validé",
-      description: "Validation des fondamentaux du Cloud AWS, de la sécurité, des architectures réseau et des services managés."
-    },
-    {
-      title: "AWS Certified Solutions Architect – Associate",
-      issuer: "Amazon Web Services",
-      status: "En cours",
-      badge: "Préparation active",
-      description: "Conception d'architectures Cloud hautement disponibles, tolérantes aux pannes, sécurisées et optimisées en coûts."
+      badge: "Validée",
+      description: "Validation des fondamentaux du Cloud AWS, sécurité, architectures réseau, calcul et services managés."
     },
     {
       title: "Certification TOEIC Anglais",
       issuer: "ETS Global",
       status: "Score : 860 / 990",
-      badge: "Niveau B2 / C1",
-      description: "Maîtrise de l'anglais professionnel en contexte technique, rédactionnel et de communication internationale."
+      badge: "Niveau B2",
+      description: "Anglais professionnel et technique fluide en contexte de développement international."
     }
+  ];
+
+  const softSkills = [
+    "Rigoureuse et organisée",
+    "Capacité d’analyse et de synthèse",
+    "Maîtrise du travail sous pression",
+    "Autonome et force de proposition",
+    "Esprit d’équipe",
+    "Aisance relationnelle et bonne communication"
+  ];
+
+  const hobbies = [
+    { title: "Pâtisserie", description: "Précision, rigueur du dosage et créativité culinaire." },
+    { title: "Sport & Dépassement", description: "Pratique régulière de la musculation et de la course à pied (endurance et discipline)." },
+    { title: "Couture", description: "Patience, minutie, assemblage et attention au moindre détail." }
   ];
 
   return (
@@ -179,7 +237,7 @@ const PersonInfo = () => {
           </h2>
 
           <p className="text-slate-600 dark:text-gray-dark text-sm sm:text-base max-w-xl leading-relaxed">
-            Ingénieure diplômée de l'<strong className="text-slate-900 dark:text-white font-medium">ESIEA</strong> avec <strong className="text-blue-700 dark:text-blue-400 font-semibold">2 ans d'expérience à la Société Générale</strong> sur des applications bancaires critiques, le traitement de données massives et le Cloud.
+            Ingénieure logicielle diplômée de l'<strong className="text-slate-900 dark:text-white font-medium">ESIEA</strong> avec <strong className="text-blue-700 dark:text-blue-400 font-semibold">2 ans d'expérience à la Société Générale</strong> et aujourd'hui <strong className="text-slate-900 dark:text-white font-medium">Développeuse Fullstack Freelance</strong> (PayFlex, LorJob).
           </p>
         </div>
 
@@ -190,12 +248,12 @@ const PersonInfo = () => {
             <div className="text-xs text-slate-500 dark:text-gray-dark mt-0.5">Société Générale (Prod bancaire)</div>
           </div>
           <div className="p-4 rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark shadow-sm">
-            <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">Millions</div>
-            <div className="text-xs text-slate-500 dark:text-gray-dark mt-0.5">Lignes de données (MyBigData)</div>
+            <div className="text-2xl font-bold text-blue-700 dark:text-blue-400">BNPL 4x</div>
+            <div className="text-xs text-slate-500 dark:text-gray-dark mt-0.5">PayFlex (FinTech Freelance)</div>
           </div>
           <div className="p-4 rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark shadow-sm">
-            <div className="text-2xl font-bold text-slate-900 dark:text-white">50+</div>
-            <div className="text-xs text-slate-500 dark:text-gray-dark mt-0.5">Collaborateurs (Chatbot IA)</div>
+            <div className="text-2xl font-bold text-slate-900 dark:text-white">Millions</div>
+            <div className="text-xs text-slate-500 dark:text-gray-dark mt-0.5">Lignes traitées (MyBigData)</div>
           </div>
           <div className="p-4 rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark shadow-sm">
             <div className="text-2xl font-bold text-slate-900 dark:text-white">Bac+5</div>
@@ -242,7 +300,7 @@ const PersonInfo = () => {
           <div className="space-y-6 my-6">
             <h3 className="text-xs font-semibold text-slate-500 dark:text-gray-dark uppercase tracking-wider flex items-center gap-2">
               <Briefcase className="w-4 h-4 text-blue-600 dark:text-blue-400" />
-              <span>Expériences en Entreprise & Projets d'Ingénierie</span>
+              <span>Expériences en Entreprise & Missions Freelance</span>
             </h3>
 
             {experiences.map((exp) => (
@@ -348,7 +406,7 @@ const PersonInfo = () => {
                         {edu.school}
                       </h4>
                       <span className="text-[11px] font-medium px-2.5 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-400 border border-emerald-200/50 dark:border-emerald-900/50">
-                        Bac+5 • Titre CTI
+                        Bac+5 • Titre d'Ingénieur CTI
                       </span>
                     </div>
                     <div className="text-xs sm:text-sm font-semibold text-slate-700 dark:text-slate-300">
@@ -383,7 +441,7 @@ const PersonInfo = () => {
             ))}
 
             {/* Certifications en grille */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
               {certifications.map((cert, cIdx) => (
                 <div
                   key={cIdx}
@@ -415,7 +473,56 @@ const PersonInfo = () => {
           </div>
         )}
 
-        {/* Section 3 : Méthode & Philosophie d'Ingénierie */}
+        {/* Section 3 : Atouts & Centres d'Intérêt */}
+        <div className="mt-10 pt-6 border-t border-slate-200 dark:border-border-dark">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            
+            {/* Atouts */}
+            <div>
+              <h3 className="text-xs font-semibold text-slate-500 dark:text-gray-dark uppercase tracking-wider mb-4 flex items-center gap-2">
+                <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                <span>Atouts & Savoir-Être</span>
+              </h3>
+              <div className="space-y-2">
+                {softSkills.map((skill, idx) => (
+                  <div 
+                    key={idx}
+                    className="flex items-center gap-2 p-2.5 rounded-lg border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark text-xs sm:text-sm text-slate-700 dark:text-slate-300"
+                  >
+                    <Check className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+                    <span>{skill}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Centres d'Intérêt */}
+            <div>
+              <h3 className="text-xs font-semibold text-slate-500 dark:text-gray-dark uppercase tracking-wider mb-4 flex items-center gap-2">
+                <Heart className="w-4 h-4 text-rose-500" />
+                <span>Centres d'Intérêt</span>
+              </h3>
+              <div className="space-y-2.5">
+                {hobbies.map((h, idx) => (
+                  <div 
+                    key={idx}
+                    className="p-3 rounded-lg border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark"
+                  >
+                    <h5 className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white">
+                      {h.title}
+                    </h5>
+                    <p className="text-xs text-slate-500 dark:text-gray-dark mt-0.5">
+                      {h.description}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        {/* Section 4 : Méthode & Philosophie d'Ingénierie */}
         <div className="mt-10 pt-6 border-t border-slate-200 dark:border-border-dark">
           <h3 className="text-xs font-semibold text-slate-500 dark:text-gray-dark uppercase tracking-wider mb-4 flex items-center gap-2">
             <Layers className="w-4 h-4 text-blue-600 dark:text-blue-400" />
@@ -429,27 +536,27 @@ const PersonInfo = () => {
                 Rigueur & Clean Code
               </div>
               <p className="text-xs text-slate-500 dark:text-gray-dark leading-relaxed">
-                Architecture découplée en microservices, tests systématiques (JUnit, Mockito, Jest) et Quality Gates SonarQube.
+                Précision financière mathématique (zéro perte de centimes), architecture découplée, tests systématiques (JUnit 5, Mockito) et Quality Gates SonarQube.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark shadow-sm">
               <div className="text-xl font-bold text-blue-700 dark:text-blue-400 mb-1">35 %</div>
               <div className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                Automatisation Cloud & DevOps
+                Cloud, Conteneurs & DevOps
               </div>
               <p className="text-xs text-slate-500 dark:text-gray-dark leading-relaxed">
-                Infrastructure as Code (Terraform), conteneurisation Docker, clusters Kubernetes (EKS) et pipelines CI/CD résilients.
+                Déploiements sur AWS (EC2, RDS, S3), conteneurisation Docker multi-stage, clusters Kubernetes et métriques Prometheus en production.
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark shadow-sm">
               <div className="text-xl font-bold text-blue-700 dark:text-blue-400 mb-1">25 %</div>
               <div className="text-xs sm:text-sm font-semibold text-slate-900 dark:text-white mb-1.5">
-                Agilité & Sens Métier
+                Sens Produit & Agilité
               </div>
               <p className="text-xs text-slate-500 dark:text-gray-dark leading-relaxed">
-                Rituels Scrum, collaboration transverse avec les équipes produit et DevOps pour délivrer rapidement de la valeur utile.
+                Méthodes Agile Scrum & SAFe, prototypage Figma fidèle, esprit d'équipe et orientation valeur métier pour les utilisateurs finaux.
               </p>
             </div>
           </div>

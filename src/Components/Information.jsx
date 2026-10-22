@@ -12,7 +12,8 @@ import {
   Mail, 
   Clock, 
   MapPin,
-  Sparkles
+  Sparkles,
+  Briefcase
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -47,31 +48,31 @@ const Information = () => {
     }
   };
 
-  // 4 Piliers techniques unifiés (palette monochrome & accents pro, zéro arc-en-ciel)
+  // 4 Piliers techniques unifiés
   const pillars = [
     {
-      icon: Cloud,
-      title: "Cloud & Virtualisation",
-      subtitle: "AWS (EC2, RDS, S3, EKS), Docker, Kubernetes, Terraform (IaC)",
-      details: "Déploiement d'architectures distribuées résilientes, conteneurisation multi-stage et haute disponibilité."
-    },
-    {
       icon: Database,
-      title: "Backend & Microservices",
-      subtitle: "Java 17/21, Spring Boot 3, Apache Kafka, PostgreSQL, Oracle",
-      details: "APIs REST performantes, architectures orientées événements, Transactional Outbox et tolérance aux pannes."
+      title: "Backend & Micro-Services",
+      subtitle: "Java 17/21, Spring Boot 3, Spring Security, Hibernate, Hono, Python",
+      details: "APIs REST performantes, architectures modulaires, transactionnel BNPL, persistance SQL/NoSQL et robustesse bancaire."
     },
     {
       icon: Layout,
-      title: "Frontend & Interfaces Web",
-      subtitle: "TypeScript, JavaScript, React, Tailwind CSS, Intégration Figma",
-      details: "Interfaces utilisateur et tableaux de bord ergonomiques, typage strict et composants réutilisables."
+      title: "Frontend & Applications Web",
+      subtitle: "TypeScript, React, Next.js 15, Bun, Redux, Tailwind CSS, Figma",
+      details: "Interfaces utilisateurs interactives, consoles B2B, typage strict de bout en bout et dashboards de pilotage KPI."
+    },
+    {
+      icon: Cloud,
+      title: "Cloud & DevOps",
+      subtitle: "AWS (EC2, RDS, S3), Docker, Kubernetes, GitLab CI, Jenkins, Azure",
+      details: "Conteneurisation d'applications, orchestration de clusters, pipelines d'intégration continue et déploiement distribué."
     },
     {
       icon: ShieldCheck,
-      title: "DevSecOps & Qualité Logicielle",
-      subtitle: "GitLab CI, GitHub Actions, SonarQube, JUnit 5, Mockito, Trivy",
-      details: "Tests automatisés, contrôle qualité continu, Quality Gates bloquantes et scan de vulnérabilités."
+      title: "Tests, Qualité & Méthodes",
+      subtitle: "JUnit 5, Mockito, AssertJ, Jest, Selenium, SonarQube, Agile Scrum & SAFe",
+      details: "Couverture de tests unitaires/intégration, détection de non-régression, analyse statique de code et rituels agiles."
     }
   ];
 
@@ -97,7 +98,7 @@ const Information = () => {
                 Lorraine KOUAM
               </span>
               <span className="text-xs text-slate-500 dark:text-gray-dark">
-                ESIEA • Ex-Société Générale • AWS Certifiée
+                ESIEA • Ex-Société Générale • Freelance • AWS Certifiée
               </span>
             </div>
           </div>
@@ -107,7 +108,7 @@ const Information = () => {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            Disponible pour opportunités
+            À l'écoute d'opportunités
           </div>
         </div>
 
@@ -128,17 +129,20 @@ const Information = () => {
           </h1>
           
           <h2 className="text-base sm:text-lg md:text-xl font-medium text-slate-700 dark:text-slate-300 mt-2">
-            Ingénieure Cloud & DevOps • Développeuse Fullstack Java
+            Développeuse Fullstack • Java | React | Python | Cloud & DevOps
           </h2>
         </div>
 
         {/* Présentation percutante & ciblée */}
         <div className="space-y-3 text-xs sm:text-sm text-slate-600 dark:text-gray-dark leading-relaxed">
           <p>
-            Diplômée de l'<strong className="text-slate-900 dark:text-white font-medium">ESIEA</strong> et forte de <strong className="text-blue-700 dark:text-blue-400 font-semibold">2 ans d’expérience à la Société Générale</strong>, je conçois et déploie des applications critiques en combinant la rigueur du développement applicatif (<strong className="text-slate-900 dark:text-white font-medium">Java / Spring Boot</strong>, <strong className="text-slate-900 dark:text-white font-medium">React / TypeScript</strong>) avec la puissance des environnements Cloud modernes (<strong className="text-slate-900 dark:text-white font-medium">AWS, Docker, Kubernetes</strong>).
+            Ingénieure logicielle diplômée de l'<strong className="text-slate-900 dark:text-white font-medium">ESIEA</strong> avec <strong className="text-blue-700 dark:text-blue-400 font-semibold">2 ans d’expérience à la Société Générale</strong>, j’ai développé des applications critiques en <strong className="text-slate-900 dark:text-white font-medium">Java / Spring Boot</strong> et <strong className="text-slate-900 dark:text-white font-medium">React / TypeScript</strong>, avec une forte sensibilité à la qualité et à la maintenabilité du code.
           </p>
           <p>
-            À la Société Générale, j'ai notamment contribué à la plateforme de données massives <strong className="text-slate-900 dark:text-white font-medium">MyBigData</strong> (plusieurs millions de lignes traitées) et mené à bien la création de la V1 d'un <strong className="text-slate-900 dark:text-white font-medium">Chatbot IA</strong> interne adopté par plus de 50 collaborateurs.
+            Actuellement <strong className="text-slate-900 dark:text-white font-medium">Développeuse Fullstack Freelance</strong>, j'ai notamment conçu <strong className="text-blue-700 dark:text-blue-400 font-semibold">PayFlex</strong> (plateforme FinTech BNPL 4x à précision centime absolue en Spring Boot 3 & Next.js 15) et <strong className="text-slate-900 dark:text-white font-medium">LorJob</strong> (plateforme de suivi de candidatures avec Bun, Hono et Prisma).
+          </p>
+          <p>
+            J'ai également consolidé mes compétences <strong className="text-slate-900 dark:text-white font-medium">Cloud & DevOps</strong> via des déploiements distribués sur <strong className="text-slate-900 dark:text-white font-medium">AWS (EC2, RDS, S3), Docker et Kubernetes</strong>. Je recherche un poste de développeuse fullstack, backend Java ou cloud & DevOps pour contribuer à des produits robustes à forte valeur métier.
           </p>
         </div>
 
@@ -168,7 +172,7 @@ const Information = () => {
             <span>Me contacter</span>
           </Link>
 
-          {/* Heure locale & Localisation (sobre et discret) */}
+          {/* Heure locale & Localisation */}
           <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-gray-dark ml-auto pt-2 sm:pt-0">
             <span className="flex items-center gap-1.5">
               <Clock className="w-3.5 h-3.5 text-slate-400" />
@@ -177,16 +181,16 @@ const Information = () => {
             <span>•</span>
             <span className="flex items-center gap-1.5">
               <MapPin className="w-3.5 h-3.5 text-slate-400" />
-              <span>Île-de-France (Mobilité France)</span>
+              <span>Mobilité : France</span>
             </span>
           </div>
         </div>
 
-        {/* Piliers techniques unifiés (remplacement du bloc multicolore) */}
+        {/* Piliers techniques unifiés */}
         <div className="mt-12 pt-6 border-t border-slate-200 dark:border-border-dark">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-xs font-semibold text-slate-500 dark:text-gray-dark uppercase tracking-wider">
-              Domaines d'Expertise Technique
+              Domaines d'Expertise & Technologies
             </h3>
             <Link 
               to="/expertise" 

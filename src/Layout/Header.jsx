@@ -79,7 +79,7 @@ const Header = ({ openMenu, setOpenMenu }) => {
               Lorraine KOUAM
             </h3>
             <span className="text-gray-light dark:text-gray-dark text-xs">
-              Ingénieure Cloud & DevOps
+              Développeuse Fullstack • Cloud & DevOps
             </span>
           </div>
         </div>
@@ -125,7 +125,7 @@ const Header = ({ openMenu, setOpenMenu }) => {
               Lorraine KOUAM
             </h3>
             <span className="text-gray-600 dark:text-gray-400 text-sm">
-              Ingénieure Cloud & DevOps
+              Développeuse Fullstack • Cloud & DevOps
             </span>
           </div>
         </div>

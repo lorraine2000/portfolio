@@ -93,21 +93,47 @@ const Projects = () => {
                       alt={project.title}
                     />
                   </div>
-                  <div className="p-5 flex justify-between items-center">
-                    <div>
-                      <h5 className="mb-1 text-base md:text-xl font-bold tracking-tight text-black dark:text-white">
+                  <div className="p-5 flex justify-between items-start gap-4">
+                    <div className="flex-1">
+                      <div className="flex items-center gap-2 flex-wrap mb-1.5">
+                        <span className="text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 rounded bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-400 border border-blue-200/50 dark:border-blue-900/50">
+                          {project.company}
+                        </span>
+                        {project.type && (
+                          <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-200/70 dark:bg-button-bg-dark text-slate-700 dark:text-slate-300">
+                            {project.type}
+                          </span>
+                        )}
+                      </div>
+
+                      <h5 className="mb-1 text-base md:text-xl font-bold tracking-tight text-black dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
                         {project.title}
                       </h5>
-                      {/* CORRECTION ICI : <div> au lieu de <p> imbriqué */}
-                      <div className="text-slate-600 dark:text-gray-dark">
-                        {project.company}
-                        <div className="flex items-center gap-2 text-slate-600 dark:text-gray-dark text-sm sm:text-base mt-1">
-                          <RiCalendarLine className="w-5 h-5 text-blue-500" />
-                          <span>{project.date}</span>
-                        </div>
+
+                      <div className="flex items-center gap-2 text-slate-500 dark:text-gray-dark text-xs sm:text-sm mt-1">
+                        <RiCalendarLine className="w-4 h-4 text-blue-500" />
+                        <span>{project.date}</span>
                       </div>
+
+                      {project.technologies && project.technologies.length > 0 && (
+                        <div className="flex flex-wrap gap-1.5 mt-3">
+                          {project.technologies.slice(0, 4).map((tech, tIdx) => (
+                            <span
+                              key={tIdx}
+                              className="px-2 py-0.5 text-[11px] font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-button-bg-dark rounded border border-slate-200/60 dark:border-border-dark"
+                            >
+                              {tech.value}
+                            </span>
+                          ))}
+                          {project.technologies.length > 4 && (
+                            <span className="px-1.5 py-0.5 text-[10px] text-slate-400 dark:text-slate-500">
+                              +{project.technologies.length - 4}
+                            </span>
+                          )}
+                        </div>
+                      )}
                     </div>
-                    <button className="group-hover:rotate-45 text-base md:text-xl text-black dark:text-white transition-all duration-150">
+                    <button className="group-hover:rotate-45 text-base md:text-2xl text-black dark:text-white transition-all duration-200 p-1 flex-shrink-0">
                       <GoArrowUpRight />
                     </button>
                   </div>

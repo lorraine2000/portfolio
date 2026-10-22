@@ -72,7 +72,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                 Lorraine KOUAM
               </h3>
               <span className="text-gray-600 dark:text-gray-400 text-sm mb-2">
-                Ingénieure Cloud & DevOps
+                Développeuse Fullstack • Cloud & DevOps
               </span>
               {/* Date et France en texte brut, en dessous du titre */}
               <div className="text-gray-500 dark:text-gray-500 text-xs">

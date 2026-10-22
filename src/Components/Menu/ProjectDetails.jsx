@@ -315,6 +315,61 @@ const ProjectDetails = () => {
           </div>
         </motion.div>
 
+        {/* DÉFIS TECHNIQUES CLÉS & SOLUTIONS D'INGÉNIERIE */}
+        {Array.isArray(project.challenges) && project.challenges.length > 0 && (
+          <motion.div
+            variants={sectionVariants}
+            initial="hidden"
+            animate="visible"
+            transition={{ delay: 0.5 }}
+            className="mt-10"
+          >
+            <h2 className="text-black mt-6 mb-2 dark:text-white text-xl sm:text-3xl md:text-3xl font-bold max-w-xl leading-tight">
+              Défis Techniques Clés & Solutions d'Ingénierie
+            </h2>
+            <p className="text-slate-600 dark:text-gray-dark text-xs sm:text-sm mb-6">
+              Architecture transactionnelle résiliente, précision mathématique et intégrité financière.
+            </p>
+
+            <div className="space-y-4">
+              {project.challenges.map((c, cIdx) => (
+                <div
+                  key={cIdx}
+                  className="rounded-xl border border-slate-200 dark:border-border-dark bg-white dark:bg-bg-dark p-5 shadow-sm hover:border-slate-300 dark:hover:border-slate-600 transition-all"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <span className="w-6 h-6 rounded-full flex items-center justify-center bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-400 text-xs font-bold border border-blue-200/50 dark:border-blue-900/50 flex-shrink-0">
+                      {cIdx + 1}
+                    </span>
+                    <h3 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white">
+                      {c.title}
+                    </h3>
+                  </div>
+
+                  <div className="space-y-2.5 text-xs sm:text-sm">
+                    <div className="p-3 rounded-lg bg-amber-50/70 dark:bg-amber-500/10 border-l-2 border-amber-500 text-slate-700 dark:text-slate-300">
+                      <span className="font-semibold text-amber-700 dark:text-amber-400">Le problème : </span>
+                      {c.problem}
+                    </div>
+
+                    <div className="p-3 rounded-lg bg-blue-50/60 dark:bg-blue-950/30 border-l-2 border-blue-500 text-slate-700 dark:text-slate-300">
+                      <span className="font-semibold text-blue-700 dark:text-blue-400">La solution d'ingénierie : </span>
+                      {c.solution}
+                    </div>
+
+                    {c.guarantee && (
+                      <div className="p-3 rounded-lg bg-emerald-50/70 dark:bg-emerald-950/30 border-l-2 border-emerald-500 text-slate-800 dark:text-slate-200 font-mono text-xs">
+                        <span className="font-sans font-semibold text-emerald-700 dark:text-emerald-400">Garantie & validation : </span>
+                        {c.guarantee}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </motion.div>
+        )}
+
         {/* RÉSULTATS */}
         <motion.div
           variants={sectionVariants}

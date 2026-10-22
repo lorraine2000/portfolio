@@ -28,12 +28,12 @@ const Contact = () => {
   // Informations de contact
   const contactInfo = {
     name: "Lorraine KOUAM",
-    title: "Ingénieure Cloud & DevOps | Fullstack Java",
+    title: "Développeuse Fullstack | Java • React • Python • Cloud & DevOps",
     email: "lorrainekouam084@gmail.com",
     phone: "+33 6 95 39 86 00",
     linkedin: "https://www.linkedin.com/in/ls-kouam",
-    github: "https://github.com/",
-    location: "Île-de-France (Paris / Maurepas) • Mobilité France 🇫🇷"
+    github: "https://www.linkedin.com/in/ls-kouam",
+    location: "France • Mobilité France 🇫🇷"
   };
 
   const copyToClipboard = async (text, item) => {
@@ -54,8 +54,8 @@ TITLE:${contactInfo.title}
 TEL:${contactInfo.phone}
 EMAIL:${contactInfo.email}
 URL:${contactInfo.linkedin}
-ADR:;;Île-de-France;France;;;
-NOTE:Ingénieure Cloud & DevOps | Fullstack Java (ESIEA, Société Générale)
+ADR:;;France;;;;
+NOTE:Développeuse Fullstack | Java, React, Cloud & DevOps (ESIEA, Ex-Société Générale, Freelance)
 END:VCARD`;
 
     const blob = new Blob([vcard], { type: "text/vcard;charset=utf-8;" });
@@ -175,7 +175,7 @@ END:VCARD`;
             </h1>
 
             <p className="text-slate-600 dark:text-gray-dark text-sm sm:text-base max-w-xl leading-relaxed">
-              Vous recherchez une <strong>Ingénieure Cloud & DevOps</strong> ou une <strong>Développeuse Fullstack Java</strong> ? Discutons de vos besoins d'infrastructure, de vos projets ou d'une opportunité de collaboration.
+              Vous recherchez une <strong>Développeuse Fullstack</strong> (Java, Spring Boot, React, Next.js, Python) ou <strong>Cloud & DevOps</strong> ? Discutons de vos projets techniques, d'une mission freelance ou d'une opportunité de collaboration.
             </p>
 
             {/* Micro-indicateurs d'engagement (design sobre et pro) */}
@@ -186,11 +186,11 @@ END:VCARD`;
               </div>
               <div className="flex items-center gap-2">
                 <FiMapPin className="text-slate-400 dark:text-slate-500" />
-                <span>Localisation : <strong className="text-slate-900 dark:text-white font-medium">Paris / IDF (Mobilité France)</strong></span>
+                <span>Localisation : <strong className="text-slate-900 dark:text-white font-medium">Mobilité France</strong></span>
               </div>
               <div className="flex items-center gap-2">
                 <FiBriefcase className="text-slate-400 dark:text-slate-500" />
-                <span>Contrats : <strong className="text-slate-900 dark:text-white font-medium">CDI • Prestation • Freelance</strong></span>
+                <span>Contrats : <strong className="text-slate-900 dark:text-white font-medium">CDI • Freelance • Prestation</strong></span>
               </div>
             </div>
 
@@ -322,7 +322,7 @@ END:VCARD`;
                   type="text"
                   value={formData.subject}
                   onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                  placeholder="Ex: Opportunité Ingénieure Cloud / DevOps (CDI)"
+                  placeholder="Ex: Opportunité Développeuse Fullstack / Mission Freelance"
                   className="w-full px-3.5 py-2.5 text-xs sm:text-sm rounded-lg border border-slate-300 dark:border-border-dark bg-slate-50 dark:bg-button-bg-dark text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-slate-400 dark:focus:ring-slate-500"
                 />
               </div>
